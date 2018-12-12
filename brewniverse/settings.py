@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'posts',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -120,3 +121,6 @@ USE_TZ = True
 
 
 STATIC_URL = '/static/'
+# Configure Django App for Heroku.
+import django_heroku
+django_heroku.settings(locals())
