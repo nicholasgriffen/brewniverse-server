@@ -1,26 +1,60 @@
 [
+
     {
-        "model": "posts.post",
-        "pk": 1,
-        "fields": {
-            "title": "Armin",
-            "content": "something@gmail.com",
-            "picture": "I am looking for a Javascript mentor",
-            "score": 2,
-            "updated_at": "2018-12-14 00:00:00",
-            "created_at": "2018-02-14 00:00:00"
-        }
+    "model": "posts.post",    
+    
+    "pk": 1,
+  
+    "fields": {"title": "Avery Fimbulvvinter",
+  
+    "content": "It is incredible.", 
+  
+    "score": 5,
+  
+    "rating": 5,
+  
+    "picture": "https://cdn.beeradvocate.com/im/beers/310321.jpg",
+    "created_at": "2018-01-14 00:00:00",
+    "updated_at": "2018-11-14 00:00:00"}
+  
     },
+  
     {
-        "model": "posts.post",
-        "pk": 2,
-        "fields": {
-            "title": "Tom",
-            "content": "tomsomething@gmail.com",
-            "picture": "I want to talk about a Python project",
-            "score": 2,
-            "updated_at": "2018-11-14 00:00:00",
-            "created_at": "2018-01-14 00:00:00"
-        }
-    }
-]
+    "model": "posts.post",
+  
+    "pk": 2,
+  
+    "fields":{"title": "Old Rasputin",
+  
+    "content": "What a Russian day in the neighborhood.",
+  
+    "score": 3,
+  
+    "rating": 5,
+  
+    "picture": "https://www.totalwine.com/media/sys_master/twmmedia/h75/h5d/9071470805022.png",
+    "created_at": "2018-01-14 00:00:00",
+    "updated_at": "2018-11-14 00:00:00"}
+  
+  },
+  
+  {
+    "model": "posts.post",
+    
+    "pk": 3,
+  
+    "fields": {    "title": "90 Shilling",
+  
+    "content": "Does not taste like coins at all.",
+  
+    "score": 4,
+  
+    "rating": 5,
+  
+    "picture": "https://cdn.beeradvocate.com/im/beers/740.jpg",
+    "created_at": "2018-01-14 00:00:00",
+    "updated_at": "2018-11-14 00:00:00"}
+  
+  }
+  
+  ]
