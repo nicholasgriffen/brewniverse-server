@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get('SECRET', ['Please configure SECRET'])
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = os.environ.get('CORS_WHITELIST', ['Please configure CORS_WHITELIST'])
+ALLOWED_HOSTS = []
 
 #CORS config 
 CORS_ORIGIN_WHITELIST = os.environ.get('CORS_WHITELIST', ['Please configure CORS_WHITELIST'])
@@ -148,7 +148,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 
-STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 # Configure Django App for Heroku.
 import django_heroku
 django_heroku.settings(locals())
