@@ -28,14 +28,14 @@ method: GET
   - return: `Object: { id: Int content: String, title: String, score: Int, rating: Int, picture: String, tags: Array<Tag> }` 
   
 method: PATCH  
-  - body: `JSON: { content: String?, title: String?, score: Int?, rating: Int?, picture: String? }`   
+  - body: `JSON: { content: String?, title: String?, score: Int?, rating: Int?, picture: String?, tags: Array<Tag>? }`   
   - headers: "Content-Type": "application/json"  
-  - return: `Object: { id: Int content: String, title: String, score: Int, rating: Int, picture: String }`
+  - return: `Object: { id: Int content: String, title: String, score: Int, rating: Int, picture: String, tags: Array<Tag> }`
   
 method: PUT  
   - body: `JSON: { content: String, title: String, score: Int, rating: Int, picture: String }`   
   - headers: "Content-Type": "application/json"  
-  - return: `Object: { id: Int content: String, title: String, score: Int, rating: Int, picture: String }`
+  - return: `Object: { id: Int content: String, title: String, score: Int, rating: Int, picture: String, tags: Array<Tag> }`
   
 method: DELETE
   - body: null  
