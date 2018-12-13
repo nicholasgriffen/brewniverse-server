@@ -16,7 +16,8 @@ class PostListCreate(generics.ListCreateAPIView):
                         #   IsOwnerOrReadOnly)
 
     def perform_create(self, serializer):
-        serializer.save(author=self.request.user)
+        # Hack, hardcoding author to the 1 existing user
+        serializer.save(author=User.objects.get(id=1))
 
 # Read (one), Update, Delete
 class PostDetail(generics.RetrieveUpdateDestroyAPIView):
