@@ -23,3 +23,4 @@ class Post(models.Model):
 
 class Brewser(AbstractUser):
     picture = models.CharField(max_length=255) 
+    channels = models.ManyToManyField('posts.Tag')    
