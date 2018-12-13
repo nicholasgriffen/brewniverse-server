@@ -7,7 +7,6 @@ class TagSerializer(serializers.ModelSerializer):
         fields = ['tag', 'posts']
 
 class PostSerializer(serializers.ModelSerializer):
-    author = serializers.ReadOnlyField(source='author.id')
     tags = TagSerializer(many=True, read_only=True)
     class Meta: 
         model = Post
@@ -19,6 +18,9 @@ class PostSerializer(serializers.ModelSerializer):
                 'score',
                 'tags', 
                 'title')
+
+class ChannelSerializer(TagSerializer):
+    posts = PostSerializer(many=True, read_only=True)
 
 class UserSerializer(serializers.ModelSerializer):
     posts = PostSerializer(many=True, read_only=True)
@@ -45,3 +47,5 @@ class UserSerializer(serializers.ModelSerializer):
         user.save()
 
         return user
+class PostWithAuthorSerializer(PostSerializer):
+    author = UserSerializer()
