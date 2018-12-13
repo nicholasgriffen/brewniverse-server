@@ -53,3 +53,10 @@ method: POST
   - body: `JSON: { email: String, id: username: String, password: String }`
   - headers: null
   - return: `Object: { email: String, id: Int, username: String, posts: Array<Post> }`
+
+## Endpoint: `/users/:id`  
+
+method: GET
+  - body: null
+  - headers: null
+  - return: `Object: { email: String, id: Int, username: String, posts: Array<Post> }`
