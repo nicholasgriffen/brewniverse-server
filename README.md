@@ -1,6 +1,11 @@
 # Development 
+## Set Environment Variables Vars 
+e.g.,  
+`export CORS_WHITELIST=['localhost']`  
+`export SECRET='$3CR3T'`
 
-Start the server with python manage.py runserver
+## Run the Server
+`python manage.py runserver`
 
 # Contracts 
 ## Endpoint: `/posts/`  
