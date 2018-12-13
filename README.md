@@ -1,5 +1,5 @@
 # Development 
-## Set Environment Variables Vars 
+## Set Environment Variables 
 e.g.,  
 `export CORS_WHITELIST=['localhost']`  
 `export SECRET='$3CR3T'`
