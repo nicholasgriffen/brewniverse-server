@@ -6,7 +6,7 @@
       "pk": 1,
     
       "fields": {
-        "author": 4, 
+        "author": 1, 
 
         "title": "Avery Fimbulvvinter",   
       
@@ -32,7 +32,7 @@
     "pk": 2,
   
     "fields":{
-      "author": 4, 
+      "author": 1, 
 
       "title": "Old Rasputin",
   
@@ -58,7 +58,7 @@
     "pk": 3,
   
     "fields": {   
-      "author": 4, 
+      "author": 1, 
       "title": "90 Shilling",
   
       "content": "Does not taste like coins at all.",
