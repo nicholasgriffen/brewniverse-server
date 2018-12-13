@@ -2,64 +2,56 @@
         "model": "posts.tag",
         "pk": 1,
         "fields": {
-            "tag": "beer", 
-            "posts": [1, 2, 3]
+            "tag": "beer"
         }
     },
     { 
         "model": "posts.tag",
         "pk": 2,
         "fields": {
-            "tag": "avery",
-            "posts": [1]
+            "tag": "avery"
         } 
     },
     { 
         "model": "posts.tag",
         "pk": 3,
         "fields": {
-            "tag": "belgian",
-            "posts": [1]
+            "tag": "belgian"
         } 
     },
     { 
         "model": "posts.tag",
         "pk": 4,
         "fields": {
-            "tag": "stout", 
-            "posts": [2]
+            "tag": "stout" 
         }
     },
     { 
         "model": "posts.tag",
         "pk": 5,
         "fields": {
-            "tag": "north coast", 
-            "posts": [2]
+            "tag": "north coast" 
         }
     },
     { 
         "model": "posts.tag",        
         "pk": 6,
         "fields": {
-            "tag": "odell", 
-            "posts": [3]
+            "tag": "odell" 
         }
     },
     { 
         "model": "posts.tag",
         "pk": 7,
         "fields": {
-            "tag": "amber",
-            "posts": [2]
+            "tag": "amber"
         }
     },
     { 
         "model": "posts.tag",
         "pk": 8,
         "fields": {
-            "tag": "imperial", 
-            "posts": [3]
+            "tag": "imperial"
         }
     }
     

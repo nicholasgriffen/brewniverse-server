@@ -9,7 +9,7 @@ from posts.serializers import TagSerializer
 from posts.models import Post
 from posts.serializers import PostSerializer
 
-from django.contrib.auth.models import User 
+from posts.models import Brewser
 from posts.serializers import UserSerializer
 
 # Read (all), Create
@@ -43,12 +43,12 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     # permission_classes = (permissions.IsAuthenticatedOrReadOnly,
                         #   IsOwnerOrReadOnly)
 
-# Read (all)
+# Read (all), Create
 class UserList(generics.ListCreateAPIView):
-    queryset = User.objects.all()
+    queryset = Brewser.objects.all()
     serializer_class = UserSerializer
 
 # Read (one)
 class UserDetail(generics.RetrieveAPIView):
-    queryset = User.objects.all()
+    queryset = Brewser.objects.all()
     serializer_class = UserSerializer
