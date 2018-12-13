@@ -5,7 +5,7 @@ from posts.models import Post, Tag
 class TagSerializer(serializers.ModelSerializer):
     class Meta: 
         model = Tag 
-        fields = ['tag']
+        fields = ['tag', 'posts']
 
 class PostSerializer(serializers.ModelSerializer):
     author = serializers.ReadOnlyField(source='author.id')
