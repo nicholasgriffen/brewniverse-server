@@ -51,7 +51,7 @@ method: GET
 
 method: POST
   - body: `JSON: { email: String, id: username: String, password: String }`
-  - headers: null
+  - headers: "Content-Type": "application/json" 
   - return: `Object: { email: String, id: Int, username: String, posts: Array<Post> }`
 
 ## Endpoint: `/users/:id`  
