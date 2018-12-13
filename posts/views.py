@@ -20,23 +20,22 @@ class PostListCreate(generics.ListCreateAPIView):
                         #   IsOwnerOrReadOnly)
 
     def perform_create(self, serializer):
-        # Hack, hardcoding author to the 1 existing user
-        serializer.save(author=User.objects.get(id=1))
         modelTags = []
         # Iterate over request tags 
         for dataTag in self.request.data['tags']:
-            try:
             # Look up tag
+            # Create if does not exist
+            try:
                 found = Tag.objects.get(tag=dataTag)
             except ObjectDoesNotExist: 
-            # Create if does not exist
                 found = Tag.objects.create(tag=dataTag)
-            # accumulate
+            # accumulate            
             modelTags = modelTags + [found]
-        # save on post
-        serializer.save(tags=modelTags)
-    
 
+        serializer.save(tags=modelTags)
+        # Hack, hardcoding author to the 1 existing user
+        serializer.save(author=User.objects.get(id=1))
+    
 # Read (one), Update, Delete
 class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
@@ -45,7 +44,7 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
                         #   IsOwnerOrReadOnly)
 
 # Read (all)
-class UserList(generics.ListAPIView):
+class UserList(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
