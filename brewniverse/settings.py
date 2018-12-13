@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'n_oyqu^lg(53f!vnf*_mij-i=kx+4hcf0_-568a9$ejin$)t#('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['http://127.0.0.1', 'http://parallel-brewniverses.surge.sh']
 
 #CORS config 
 CORS_ORIGIN_ALLOW_ALL = True 
