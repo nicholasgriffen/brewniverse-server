@@ -31,6 +31,7 @@ class UserSerializer(serializers.ModelSerializer):
                 'picture', 
                 'posts',
                 'password')
+              #keyword args  
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
@@ -39,7 +40,7 @@ class UserSerializer(serializers.ModelSerializer):
             email=validated_data['email'],
             picture=validated_data['picture']
         )
-
+        # hash pw and save a hash
         user.set_password(validated_data['password'])
         user.save()
 
