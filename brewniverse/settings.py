@@ -20,16 +20,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'n_oyqu^lg(53f!vnf*_mij-i=kx+4hcf0_-568a9$ejin$)t#('
+SECRET_KEY = os.environ.get('SECRET', ['Please configure SECRET'])
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['http://127.0.0.1', 'http://parallel-brewniverses.surge.sh']
+ALLOWED_HOSTS = os.environ.get('CORS_WHITELIST', ['Please configure CORS_WHITELIST'])
 
 #CORS config 
-CORS_ORIGIN_ALLOW_ALL = True 
-
+CORS_ORIGIN_WHITELIST = os.environ.get('CORS_WHITELIST', ['Please configure CORS_WHITELIST'])
 CORS_ALLOW_HEADERS = (
     'accept',
     'accept-encoding',
