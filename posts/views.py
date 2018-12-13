@@ -7,7 +7,7 @@ from posts.models import Tag
 from posts.serializers import ChannelSerializer
 
 from posts.models import Post
-from posts.serializers import PostWithAuthorSerializer
+from posts.serializers import PostSerializer
 
 from posts.models import Brewser
 from posts.serializers import UserSerializer
@@ -15,7 +15,7 @@ from posts.serializers import UserSerializer
 # Read (all), Create
 class PostListCreate(generics.ListCreateAPIView):
     queryset = Post.objects.all()
-    serializer_class = PostWithAuthorSerializer
+    serializer_class = PostSerializer
     # permission_classes = (permissions.IsAuthenticatedOrReadOnly)
 
     def perform_create(self, serializer):
@@ -37,7 +37,7 @@ class PostListCreate(generics.ListCreateAPIView):
 # Read (one), Update, Delete
 class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
-    serializer_class = PostWithAuthorSerializer
+    serializer_class = PostSerializer
     # permission_classes = (permissions.IsAuthenticatedOrReadOnly,
                         #   IsOwnerOrReadOnly)
     # Brewser.objects.get(id=author.id)
