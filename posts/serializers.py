@@ -24,6 +24,7 @@ class ChannelSerializer(TagSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     posts = PostSerializer(many=True, read_only=True)
+    channels = ChannelSerializer(many=True, read_only=True)
     
     class Meta: 
         model = Brewser 
@@ -32,6 +33,7 @@ class UserSerializer(serializers.ModelSerializer):
                 'email',
                 'picture', 
                 'posts',
+                'channels',
                 'password')
               #keyword args  
         extra_kwargs = {'password': {'write_only': True}}
