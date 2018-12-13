@@ -19,6 +19,9 @@ class PostListCreate(generics.ListCreateAPIView):
     # permission_classes = (permissions.IsAuthenticatedOrReadOnly)
 
     def perform_create(self, serializer):
+        # Hack, hardcoding author to the 1 existing user
+        # get an instance to be used to build tag association
+        instance = serializer.save(author=Brewser.objects.get(id=4))
         modelTags = []
         # Iterate over request tags 
         for dataTag in self.request.data['tags']:
@@ -29,11 +32,11 @@ class PostListCreate(generics.ListCreateAPIView):
             except ObjectDoesNotExist: 
                 found = Tag.objects.create(tag=dataTag)
             # accumulate            
+            # associate post with tag
             modelTags = modelTags + [found]
-        # Hack, hardcoding author to the 1 existing user
-        
-        serializer.save(author=Brewser.objects.get(id=1))
-        serializer.save(tags=modelTags)
+            found.posts.add(instance)
+        # call .set since instance is already saved
+        instance.tags.set(modelTags)
 # Read (one), Update, Delete
 class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
@@ -47,7 +50,7 @@ class UserList(generics.ListCreateAPIView):
     serializer_class = UserSerializer
 
 # Read (one)
-class UserDetail(generics.RetrieveAPIView):
+class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Brewser.objects.all()
     serializer_class = UserSerializer
 
