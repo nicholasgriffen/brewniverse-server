@@ -73,6 +73,6 @@ class UserSerializer(serializers.ModelSerializer):
 
         #update anything else
         for key in validated_data:
-            instance[key] = validated_data[key]
+            instance[key].set(validated_data[key])
 
         return instance
