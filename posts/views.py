@@ -41,18 +41,20 @@ class PostListCreate(generics.ListCreateAPIView):
 class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    # permission_classes = (permissions.IsAuthenticatedOrReadOnly,
-                        #   IsOwnerOrReadOnly)
-    # Brewser.objects.get(id=author.id)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
+                          IsOwnerOrReadOnly)
 # Read (all), Create
 class UserList(generics.ListCreateAPIView):
     queryset = Brewser.objects.all()
     serializer_class = UserSerializer
+    permission_classes = ()
 
 # Read (one)
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Brewser.objects.all()
     serializer_class = UserSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
+                          IsOwnerOrReadOnly)
 
 class ChannelList(generics.ListAPIView):
     queryset = Tag.objects.all()

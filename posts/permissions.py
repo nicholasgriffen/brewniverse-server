@@ -12,5 +12,8 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
         if request.method in permissions.SAFE_METHODS:
             return True
 
-        # Write permissions are only allowed to the owner of the post.
-        return obj.author == request.user
+        # Write permissions are only allowed to the owner of the postf.
+        if hasattr(obj, 'author'):
+            return obj.author == request.user
+        else:
+            return obj == request.user
