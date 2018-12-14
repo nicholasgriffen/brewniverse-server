@@ -19,7 +19,7 @@ POST
 
 POST:   
   - body: `JSON: { content: String, title: String, score: Int, rating: Int, picture: String }`  
-  - headers: `"Content-Type": "application/json", "Bearer": <token>`    
+  - headers: `"Content-Type": "application/json", "Authorization": "Bearer <token>"`    
   - return: `Object: { id: Int content: String, title: String, score: Int, rating: Int, picture: String, tags: Array<String> }`
 
 GET 
@@ -36,12 +36,12 @@ GET
   
 PATCH  
   - body: `JSON: { content: String?, title: String?, score: Int?, rating: Int?, picture: String?, tags: Array<String>? }`   
-  - headers: `"Content-Type": "application/json", "Bearer": <token>`  
+  - headers: `"Content-Type": "application/json", "Authorization": "Bearer <token>"`  
   - return: `Object: { id: Int content: String, title: String, score: Int, rating: Int, picture: String, tags: Array<Tag> }`
   
 PUT  
   - body: `JSON: { content: String, title: String, score: Int, rating: Int, picture: String, tags: Array<String> }`   
-  - headers: `"Content-Type": "application/json", "Bearer": <token>`  
+  - headers: `"Content-Type": "application/json", "Authorization": "Bearer <token>"`  
   - return: `Object: { id: Int content: String, title: String, score: Int, rating: Int, picture: String, tags: Array<Tag> }`
   
 DELETE
@@ -70,17 +70,17 @@ GET
 
 PATCH  
   - body: `JSON: { email: String?, username: String?, picture: String?, channels: Array<Tag>? }`   
-  - headers: `"Content-Type": "application/json", "Bearer": <token>`  
+  - headers: `"Content-Type": "application/json", "Authorization": "Bearer <token>"`  
   - return: `Object: {  email: String, id: Int, username: String, picture: String, posts: Array<Post>, channels: Array<Tag> }`
   
 PUT  
   - body: `JSON: { email: String, username: String, picture: String, channels: Array<Tag>  }`   
-  - headers: `"Content-Type": "application/json", "Bearer": <token>`  
+  - headers: `"Content-Type": "application/json", "Authorization": "Bearer <token>"`  
   - return: `Object: {  email: String, id: Int, username: String, picture: String, posts: Array<Post>, channels: Array<Tag> }`
   
 DELETE
   - body: null  
-  - headers: `"Bearer": <token>`  
+  - headers: `"Authorization": "Bearer <token>"`  
   - return: null 
 
 ## `/channels/ `
