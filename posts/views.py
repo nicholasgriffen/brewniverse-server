@@ -16,12 +16,12 @@ from posts.serializers import UserSerializer
 class PostListCreate(generics.ListCreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    # permission_classes = (permissions.IsAuthenticatedOrReadOnly)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     def perform_create(self, serializer):
         # Hack, hardcoding author to the 1 existing user
         # get an instance to be used to build tag association
-        instance = serializer.save(author=Brewser.objects.get(id=4))
+        instance = serializer.save(author=self.request.user)
         modelTags = []
         # Iterate over request tags 
         for dataTag in self.request.data['tags']:

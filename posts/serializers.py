@@ -27,8 +27,8 @@ class ChannelSerializer(TagSerializer):
     posts = PostSerializer(many=True, read_only=False)
 
 class UserSerializer(serializers.ModelSerializer):
-    posts = PostSerializer(many=True, read_only=False)
-    channels = ChannelSerializer(many=True, read_only=False)
+    posts = PostSerializer(many=True, read_only=False, required=False)
+    channels = ChannelSerializer(many=True, read_only=False, required=False)
     
     class Meta: 
         model = Brewser 
@@ -60,6 +60,7 @@ class UserSerializer(serializers.ModelSerializer):
         if validated_data['channels']:
             for channel in validated_data['channels']:
                 tagInstance = Tag.objects.get(tag=channel['tag'])
-                instance.channels.add(tagInstance)
+                tags = tags + [tagInstance]
         
+        instance.channels.set(tags)
         return instance
