@@ -17,10 +17,10 @@ POST
   
 ## `/posts/`  
 
-POST: Authentication Required   
+POST:   
   - body: `JSON: { content: String, title: String, score: Int, rating: Int, picture: String }`  
   - headers: `"Content-Type": "application/json", "Bearer": <token>`    
-  - return: `Object: { id: Int content: String, title: String, score: Int, rating: Int, picture: String, tags: Array<Tag> }`
+  - return: `Object: { id: Int content: String, title: String, score: Int, rating: Int, picture: String, tags: Array<String> }`
 
 GET 
   - body: null  
@@ -35,18 +35,18 @@ GET
   - return: `Object: { id: Int content: String, title: String, score: Int, rating: Int, picture: String, tags: Array<Tag> }` 
   
 PATCH  
-  - body: `JSON: { content: String?, title: String?, score: Int?, rating: Int?, picture: String?, tags: Array<Tag>? }`   
-  - headers: "Content-Type": "application/json"  
+  - body: `JSON: { content: String?, title: String?, score: Int?, rating: Int?, picture: String?, tags: Array<String>? }`   
+  - headers: `"Content-Type": "application/json", "Bearer": <token>`  
   - return: `Object: { id: Int content: String, title: String, score: Int, rating: Int, picture: String, tags: Array<Tag> }`
   
 PUT  
-  - body: `JSON: { content: String, title: String, score: Int, rating: Int, picture: String }`   
-  - headers: "Content-Type": "application/json"  
+  - body: `JSON: { content: String, title: String, score: Int, rating: Int, picture: String, tags: Array<String> }`   
+  - headers: `"Content-Type": "application/json", "Bearer": <token>`  
   - return: `Object: { id: Int content: String, title: String, score: Int, rating: Int, picture: String, tags: Array<Tag> }`
   
 DELETE
   - body: null  
-  - headers: null  
+  - headers: `"Bearer": <token>`  
   - return: null  
 
 ## `/users/`  
@@ -54,19 +54,34 @@ DELETE
 GET
   - body: null
   - headers: null
-  - return: `Array<Object> [{ email: String, id: Int, username: String, posts: Array<Post> }]`  
+  - return: `Array<Object> [{ email: String, id: Int, username: String, picture: String, posts: Array<Post>, channels: Array<Tag> }]`  
 
 POST
-  - body: `JSON: { email: String, id: username: String, password: String }`
+  - body: `JSON: { email: String, username: String, password: String, picture: String }`
   - headers: "Content-Type": "application/json" 
-  - return: `Object: { email: String, id: Int, username: String, posts: Array<Post> }`
+  - return: `Object: { email: String, id: Int, username: String, picture: String, posts: Array<Post>, channels: Array<Tag> }`
 
 ## `/users/:id`  
 
 GET
   - body: null
   - headers: null
-  - return: `Object: { email: String, id: Int, username: String, posts: Array<Post> }`
+  - return: `Object: { email: String, id: Int, username: String, picture: String, posts: Array<Post>, channels: Array<Tag> }`
+
+PATCH  
+  - body: `JSON: { email: String?, username: String?, picture: String?, channels: Array<Tag>? }`   
+  - headers: `"Content-Type": "application/json", "Bearer": <token>`  
+  - return: `Object: {  email: String, id: Int, username: String, picture: String, posts: Array<Post>, channels: Array<Tag> }`
+  
+PUT  
+  - body: `JSON: { email: String, username: String, picture: String, channels: Array<Tag>  }`   
+  - headers: `"Content-Type": "application/json", "Bearer": <token>`  
+  - return: `Object: {  email: String, id: Int, username: String, picture: String, posts: Array<Post>, channels: Array<Tag> }`
+  
+DELETE
+  - body: null  
+  - headers: `"Bearer": <token>`  
+  - return: null 
 
 ## `/channels/ `
 
