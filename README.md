@@ -8,18 +8,18 @@ e.g.,
 `python manage.py runserver`
 
 # Endpoints
-## `/api/token`
+## `/api/token/`
 
 POST
   - body: `JSON: { username: String, password: String }`
-  - headers: "Content-Type": "application/json"  
+  - headers: `"Content-Type": "application/json"`  
   - return: `Object: { access: String, refresh: String }`
   
 ## `/posts/`  
 
-POST  
+POST: Authentication Required   
   - body: `JSON: { content: String, title: String, score: Int, rating: Int, picture: String }`  
-  - headers: ["Content-Type": "application/json", "Bearer": access token retrieved from POST /api/token/]    
+  - headers: `"Content-Type": "application/json", "Bearer": <token>`    
   - return: `Object: { id: Int content: String, title: String, score: Int, rating: Int, picture: String, tags: Array<Tag> }`
 
 GET 
