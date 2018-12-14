@@ -14,6 +14,13 @@ POST
   - body: `JSON: { username: String, password: String }`
   - headers: `"Content-Type": "application/json"`  
   - return: `Object: { access: String, refresh: String }`
+
+## `/api/token/refresh`
+
+POST
+  - body: `JSON: { refresh: <Token> }`
+  - headers: `"Content-Type": "application/json"`  
+  - return: `Object: { access: <Token> }`
   
 ## `/posts/`  
 
