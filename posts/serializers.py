@@ -69,9 +69,9 @@ class UserSerializer(serializers.ModelSerializer):
             instance.set_password(validated_data['password'])
             validated_data.pop('password', None)
 
-        instance.email.set(validated_data.get('email', instance.email))
-        instance.picture.set(validated_data.get('picture', instance.picture))
-        instance.username.set(validated_data.get('username', instance.username))
+        instance.email = (validated_data.get('email', instance.email))
+        instance.picture = (validated_data.get('picture', instance.picture))
+        instance.username = (validated_data.get('username', instance.username))
         instance.channels.set(tags)
         instance.save()
         return instance
