@@ -15,7 +15,7 @@ POST
   - headers: `"Content-Type": "application/json"`  
   - return: `Object: { access: String, refresh: String }`
 
-## `/api/token/refresh`
+## `/api/token/refresh/`
 
 POST
   - body: `JSON: { refresh: <Token> }`
