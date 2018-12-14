@@ -7,17 +7,20 @@ class TagSerializer(serializers.ModelSerializer):
         fields = ['tag', 'posts']
 
 class PostSerializer(serializers.ModelSerializer):
-    author = serializers.ReadOnlyField(source='author.id')
+    author = serializers.ReadOnlyField(source='author.username')
+    authorId = serializers.ReadOnlyField(source='author.id')
+    
     tags = TagSerializer(many=True, read_only=True)
     class Meta: 
         model = Post
         fields = ('id', 
                 'author',
-                'content', 
+                'content',
+                'authorId', 
                 'picture', 
                 'rating', 
                 'score',
-                'tags', 
+                'tags',
                 'title')
 
 class ChannelSerializer(TagSerializer):
@@ -50,3 +53,13 @@ class UserSerializer(serializers.ModelSerializer):
         user.save()
 
         return user
+
+    def update(self, instance, validated_data):
+        tags = []
+        
+        if validated_data['channels']:
+            for channel in validated_data['channels']:
+                tagInstance = Tag.objects.get(tag=channel['tag'])
+                instance.channels.add(tagInstance)
+        
+        return instance
