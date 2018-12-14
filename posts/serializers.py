@@ -58,13 +58,13 @@ class UserSerializer(serializers.ModelSerializer):
         tags = []
         
         #update channels
-        if validated_data['channels']:
+        if 'channels' in validated_data:
             for channel in validated_data['channels']:
                 tagInstance = Tag.objects.get(tag=channel['tag'])
                 tags = tags + [tagInstance]
                 
         #update password 
-        if validated_data['password']:
+        if 'password' in validated_data:
             instance.set_password(validated_data['password'])
 
         instance.email = (validated_data.get('email', instance.email))
