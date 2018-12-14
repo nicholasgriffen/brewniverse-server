@@ -63,16 +63,15 @@ class UserSerializer(serializers.ModelSerializer):
                 tagInstance = Tag.objects.get(tag=channel['tag'])
                 tags = tags + [tagInstance]
             validated_data.pop('channels', None)
-        
-        instance.channels.set(tags)
-        
+                
         #update password 
         if hasattr(validated_data, 'password'):
             instance.set_password(validated_data['password'])
             validated_data.pop('password', None)
 
-        #update anything else
-        for key in validated_data:
-            instance[key].set(validated_data[key])
-
+        instance.email.set(validated_data.get('email', instance.email))
+        instance.picture.set(validated_data.get('picture', instance.picture))
+        instance.username.set(validated_data.get('username', instance.username))
+        instance.channels.set(tags)
+        instance.save()
         return instance
