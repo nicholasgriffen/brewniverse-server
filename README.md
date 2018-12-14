@@ -7,56 +7,63 @@ e.g.,
 ## Run the Server
 `python manage.py runserver`
 
-# Contracts 
-## Endpoint: `/posts/`  
+# Endpoints
+## `/posts/`  
 
-method: POST  
+POST  
   - body: `JSON: { content: String, title: String, score: Int, rating: Int, picture: String }`  
   - headers: "Content-Type": "application/json"    
   - return: `Object: { id: Int content: String, title: String, score: Int, rating: Int, picture: String, tags: Array<Tag> }`
 
-method: GET 
+GET 
   - body: null  
   - headers: null  
   - return: `Array<Object> [ { id: Int content: String, title: String, score: Int, rating: Int, picture: String, tags: Array<Tag> } ]` 
 
-## Endpoint: `/posts/:id` 
+## `/posts/:id` 
 
-method: GET 
+GET 
   - body: null  
   - headers: null  
   - return: `Object: { id: Int content: String, title: String, score: Int, rating: Int, picture: String, tags: Array<Tag> }` 
   
-method: PATCH  
+PATCH  
   - body: `JSON: { content: String?, title: String?, score: Int?, rating: Int?, picture: String?, tags: Array<Tag>? }`   
   - headers: "Content-Type": "application/json"  
   - return: `Object: { id: Int content: String, title: String, score: Int, rating: Int, picture: String, tags: Array<Tag> }`
   
-method: PUT  
+PUT  
   - body: `JSON: { content: String, title: String, score: Int, rating: Int, picture: String }`   
   - headers: "Content-Type": "application/json"  
   - return: `Object: { id: Int content: String, title: String, score: Int, rating: Int, picture: String, tags: Array<Tag> }`
   
-method: DELETE
+DELETE
   - body: null  
   - headers: null  
   - return: null  
 
-## Endpoint: `/users/`  
+## `/users/`  
 
-method: GET
+GET
   - body: null
   - headers: null
   - return: `Array<Object> [{ email: String, id: Int, username: String, posts: Array<Post> }]`  
 
-method: POST
+POST
   - body: `JSON: { email: String, id: username: String, password: String }`
   - headers: "Content-Type": "application/json" 
   - return: `Object: { email: String, id: Int, username: String, posts: Array<Post> }`
 
-## Endpoint: `/users/:id`  
+## `/users/:id`  
 
-method: GET
+GET
   - body: null
   - headers: null
   - return: `Object: { email: String, id: Int, username: String, posts: Array<Post> }`
+
+## `/channels/ `
+
+GET
+  - body: null
+  - headers: null
+  - return: `Array<Object>: [{ tag: String, id: Int, posts: Array<Post> }]`
