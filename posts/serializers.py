@@ -64,7 +64,7 @@ class UserSerializer(serializers.ModelSerializer):
                 tags = tags + [tagInstance]
                 
         #update password 
-        if validated_data['password']:
+        if hasattr(validated_data, 'password'):
             instance.set_password(validated_data['password'])
 
         instance.email = (validated_data.get('email', instance.email))
