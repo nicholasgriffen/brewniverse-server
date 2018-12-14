@@ -39,6 +39,7 @@ CORS_ALLOW_HEADERS = (
     'user-agent',
     'x-csrftoken',
     'x-requested-with',
+    'Bearer'
 )
 
 CORS_ALLOW_METHODS = (
