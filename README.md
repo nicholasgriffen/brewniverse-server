@@ -1,12 +1,18 @@
 # Development 
-## Set Environment Variables 
-e.g.,  
-`export CORS_WHITELIST=['localhost']`  
-`export SECRET='$3CR3T'`
-
+## Activate Virtual Environment
+`python3 -m venv ./brewniverse-env`    
+`cd brewniverse-env`    
+`source ./bin/activate`
+## Clone Project
+`git clone git@github.com:nicholasgriffen/brewniverse-server`
+## Install Dependencies
+`cd brewniverse-server`   
+`pip install -r requirements.txt`  
+## Set Environment Variables   
+`CORS_WHITELIST=['localhost:8000']`  
+`SECRET='$3CR3T'`  
 ## Run the Server
 `python manage.py runserver`
-
 # Endpoints
 ## `/api/token/`
 
