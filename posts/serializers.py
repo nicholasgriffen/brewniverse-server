@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from django.core.exceptions import ObjectDoesNotExist
 from posts.models import Post, Tag, Brewser
 
 class TagSerializer(serializers.ModelSerializer):
@@ -10,18 +11,37 @@ class PostSerializer(serializers.ModelSerializer):
     author = serializers.ReadOnlyField(source='author.username')
     authorId = serializers.ReadOnlyField(source='author.id')
     
-    tags = TagSerializer(many=True, read_only=True)
+    tags = TagSerializer(many=True, read_only=False)
     class Meta: 
         model = Post
         fields = ('id', 
                 'author',
+                'authorId',
+                'title', 
                 'content',
-                'authorId', 
                 'picture', 
                 'rating', 
                 'score',
-                'tags',
-                'title')
+                'tags')
+    def update(self, instance, validated_data):
+        newTags = []
+        if 'tags' in validated_data:  
+            for dataTag in validated_data['tags']:
+                try:
+                    found = Tag.objects.get(tag=dataTag['tag'])
+                except ObjectDoesNotExist: 
+                    found = Tag.objects.create(tag=dataTag['tag'])
+                found.posts.add(instance)
+                newTags = newTags + [found]
+
+        instance.tags.set(newTags)
+        instance.title = validated_data.get('title', instance.title)
+        instance.content = validated_data.get('content', instance.content)
+        instance.picture = validated_data.get('picture', instance.picture)
+        instance.rating = validated_data.get('rating', instance.rating)
+        instance.score = validated_data.get('score', instance.score)
+        instance.save()
+        return instance
 
 class ChannelSerializer(TagSerializer):
     posts = PostSerializer(many=True, read_only=False)
@@ -67,9 +87,9 @@ class UserSerializer(serializers.ModelSerializer):
         if 'password' in validated_data:
             instance.set_password(validated_data['password'])
 
-        instance.email = (validated_data.get('email', instance.email))
-        instance.picture = (validated_data.get('picture', instance.picture))
-        instance.username = (validated_data.get('username', instance.username))
+        instance.email = validated_data.get('email', instance.email)
+        instance.picture = validated_data.get('picture', instance.picture)
+        instance.username = validated_data.get('username', instance.username)
         instance.channels.set(tags)
         instance.save()
         return instance

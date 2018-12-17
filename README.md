@@ -11,6 +11,8 @@
 ## Set Environment Variables   
 `CORS_WHITELIST=['localhost:8000']`  
 `SECRET='$3CR3T'`  
+## Run the Tests
+`python manage.py test posts/`
 ## Run the Server
 `python manage.py runserver`
 # Endpoints
