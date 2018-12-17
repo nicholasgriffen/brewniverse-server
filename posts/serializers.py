@@ -25,10 +25,10 @@ class PostSerializer(serializers.ModelSerializer):
                 'tags')
     def update(self, instance, validated_data):
         if 'score' in validated_data:
-            if validated_data[score] !== instance.score:
+            if validated_data['score'] !== instance.score:
                 instance.score = validated_data['score']
                 return instance
-                
+
         newTags = []
         if 'tags' in validated_data:  
             for dataTag in validated_data['tags']:
