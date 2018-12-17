@@ -67,9 +67,9 @@ class UserSerializer(serializers.ModelSerializer):
         if 'password' in validated_data:
             instance.set_password(validated_data['password'])
 
-        instance.email = (validated_data.get('email', instance.email))
-        instance.picture = (validated_data.get('picture', instance.picture))
-        instance.username = (validated_data.get('username', instance.username))
+        instance.email = validated_data.get('email', instance.email)
+        instance.picture = validated_data.get('picture', instance.picture)
+        instance.username = validated_data.get('username', instance.username)
         instance.channels.set(tags)
         instance.save()
         return instance
