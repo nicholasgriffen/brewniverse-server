@@ -12,7 +12,7 @@ class BrewserTests(APITestCase):
             password='janpass2018'
         )
         
-        
+    # C 
     def test_post_brewser(self):
         """
         POST to /users/ creates a new Brewser.
@@ -35,6 +35,7 @@ class BrewserTests(APITestCase):
             'channels': []
         })
     
+    # R
     def test_get_brewser(self):
         """
         GET to /users/:id retrieves Brewser matching :id
@@ -50,7 +51,24 @@ class BrewserTests(APITestCase):
             'posts': [],
             'channels': []
         })
+    
+    def test_get_brewsers(self):
+        """
+        GET to /users/ retrieves all Brewsers
+        """ 
+        url = '/users/'
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, [{
+            'id': 1,
+            'username': 'Digijan',
+            'email': 'digijan@test.net',
+            'picture': 'http://cdn.forum280.org/logos/forum280_logo_no_tagline.png',
+            'posts': [],
+            'channels': []
+        }])
         
+    # D
     def test_delete_own_brewser(self):
         """
         DELETE to /users/:id with authenticated Brewser matching :id deletes Brewser matching :id
@@ -64,6 +82,7 @@ class BrewserTests(APITestCase):
         self.assertEqual(response.data, None)
         self.assertEqual(Brewser.objects.count(), 0)
     
+    # D
     def test_delete_other_brewser(self):
         """
         DELETE to /users/:id with authenticated Brewser not matching :id does not delete Brewser
@@ -84,6 +103,7 @@ class BrewserTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(Brewser.objects.count(), 2)
 
+    # U
     def test_patch_own_brewser(self):
         """
         PATCH to /users/:id with authenticated Brewser matching :id updates Brewser matching :id
@@ -102,6 +122,7 @@ class BrewserTests(APITestCase):
             'posts': [],
             'channels': []
         })
+    # U        
     def test_patch_other_brewser(self):
         """
         PATCH to /users/:id with authenticated Brewser not matching :id does not update Brewser matching :id
