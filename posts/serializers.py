@@ -85,7 +85,10 @@ class UserSerializer(serializers.ModelSerializer):
         #update channels
         if 'channels' in validated_data:
             for channel in validated_data['channels']:
-                tagInstance = Tag.objects.get(tag=channel['tag'])
+                try: 
+                    tagInstance = Tag.objects.get(tag=channel['tag'])
+                except ObjectDoesNotExist:
+                    tagInstance = Tag.objects.create(tag=channel['tag'])
                 tags = tags + [tagInstance]
                 
         #update password 
