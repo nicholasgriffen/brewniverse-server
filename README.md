@@ -102,3 +102,10 @@ GET
   - body: null
   - headers: null
   - return: `Array<Object>: [{ tag: String, id: Int, posts: Array<Post> }]`
+
+## `/channels/:channel `
+
+GET
+  - body: null
+  - headers: null
+  - return: `Object: { tag: String, id: Int, posts: Array<Post> }`
