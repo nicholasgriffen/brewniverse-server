@@ -33,9 +33,9 @@ POST
 ## `/posts/`  
 
 POST:   
-  - body: `JSON: { content: String, title: String, score: Int, rating: Int, picture: String }`  
+  - body: `JSON: { content: String, title: String, score: Int, rating: Int, picture: String, tags: Array<Tag> }`  
   - headers: `"Content-Type": "application/json", "Authorization": "Bearer <token>"`    
-  - return: `Object: { id: Int content: String, title: String, score: Int, rating: Int, picture: String, tags: Array<String> }`
+  - return: `Object: { id: Int content: String, title: String, score: Int, rating: Int, picture: String, tags:  Array<Tag> }`
 
 GET 
   - body: null  
