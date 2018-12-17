@@ -50,12 +50,12 @@ GET
   - return: `Object: { id: Int content: String, title: String, score: Int, rating: Int, picture: String, tags: Array<Tag> }` 
   
 PATCH  
-  - body: `JSON: { content: String?, title: String?, score: Int?, rating: Int?, picture: String?, tags: Array<String>? }`   
+  - body: `JSON: { content: String?, title: String?, score: Int?, rating: Int?, picture: String?, tags: Array<Tag>? }`   
   - headers: `"Content-Type": "application/json", "Authorization": "Bearer <token>"`  
   - return: `Object: { id: Int content: String, title: String, score: Int, rating: Int, picture: String, tags: Array<Tag> }`
   
 PUT  
-  - body: `JSON: { content: String, title: String, score: Int, rating: Int, picture: String, tags: Array<String> }`   
+  - body: `JSON: { content: String, title: String, score: Int, rating: Int, picture: String, tags: Array<Tag> }`   
   - headers: `"Content-Type": "application/json", "Authorization": "Bearer <token>"`  
   - return: `Object: { id: Int content: String, title: String, score: Int, rating: Int, picture: String, tags: Array<Tag> }`
   
