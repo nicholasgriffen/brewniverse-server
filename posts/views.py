@@ -18,25 +18,6 @@ class PostListCreate(generics.ListCreateAPIView):
     serializer_class = PostSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
-    def perform_create(self, serializer):
-        # get an instance to be used to build tag association
-        instance = serializer.save(author=self.request.user)
-        modelTags = []
-        # Iterate over request tags 
-        if 'tags' in self.request.data:
-            for dataTag in self.request.data['tags']:
-                # Look up tag
-                # Create if does not exist
-                try:
-                    found = Tag.objects.get(tag=dataTag)
-                except ObjectDoesNotExist: 
-                    found = Tag.objects.create(tag=dataTag)
-                # accumulate            
-                # associate post with tag
-                modelTags = modelTags + [found]
-                found.posts.add(instance)
-            # call .set since instance is already saved
-        instance.tags.set(modelTags)
 # Read (one), Update, Delete
 class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
