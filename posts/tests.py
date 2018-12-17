@@ -68,13 +68,15 @@ class BrewserTests(APITestCase):
         """
         DELETE to /users/:id with authenticated Brewser not matching :id does not delete Brewser
         """ 
-        #Bypass JWT process
+    
         user = Brewser.objects.create(
             username='NotDigijan',
             email='notdigijan@test.net',
             picture='http://cdn.forum280.org/logos/forum280_logo_no_tagline.png',
             password='janpass2018'
         )
+        
+        #Bypass JWT process
         self.client.force_authenticate(user=user)
 
         url = '/users/1'
@@ -82,3 +84,39 @@ class BrewserTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(Brewser.objects.count(), 2)
 
+    def test_patch_own_brewser(self):
+        """
+        PATCH to /users/:id with authenticated Brewser matching :id updates Brewser matching :id
+        """ 
+        #Bypass JWT process
+        self.client.force_authenticate(user=Brewser.objects.get(username='Digijan'))
+
+        url = '/users/1'
+        response = self.client.patch(url, {'email': 'digijan@test.com'})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, {
+            'id': 1,
+            'username': 'Digijan',
+            'email': 'digijan@test.com',
+            'picture': 'http://cdn.forum280.org/logos/forum280_logo_no_tagline.png',
+            'posts': [],
+            'channels': []
+        })
+    def test_patch_other_brewser(self):
+        """
+        PATCH to /users/:id with authenticated Brewser not matching :id does not update Brewser matching :id
+        """
+        user = Brewser.objects.create(
+            username='NotDigijan',
+            email='notdigijan@test.net',
+            picture='http://cdn.forum280.org/logos/forum280_logo_no_tagline.png',
+            password='janpass2018'
+        )
+         
+        #Bypass JWT process
+        self.client.force_authenticate(user=user)
+
+        url = '/users/1'
+        response = self.client.patch(url, {'email': 'digijan@test.com'})
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(Brewser.objects.get(id=1).email, 'digijan@test.net')
