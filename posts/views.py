@@ -19,7 +19,6 @@ class PostListCreate(generics.ListCreateAPIView):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     def perform_create(self, serializer):
-        # Hack, hardcoding author to the 1 existing user
         # get an instance to be used to build tag association
         instance = serializer.save(author=self.request.user)
         modelTags = []

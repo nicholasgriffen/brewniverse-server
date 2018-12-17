@@ -15,13 +15,33 @@ class PostSerializer(serializers.ModelSerializer):
         model = Post
         fields = ('id', 
                 'author',
+                'authorId',
+                'title', 
                 'content',
-                'authorId', 
                 'picture', 
                 'rating', 
                 'score',
-                'tags',
-                'title')
+                'tags')
+    def update(self, instance, validated_data):
+        tags = []
+        
+        #update tags
+        if 'tags' in validated_data:
+            for dataTag in validated_data['tags']:
+                try:
+                    found = Tag.objects.get(tag=dataTag)
+                except ObjectDoesNotExist: 
+                    found = Tag.objects.create(tag=dataTag)
+                tags = tags + [found]
+                
+        instance.title = validated_data.get('title', instance.title)
+        instance.content = validated_data.get('content', instance.content)
+        instance.picture = validated_data.get('picture', instance.picture)
+        instance.rating = validated_data.get('rating', instance.rating)
+        instance.score = validated_data.get('score', instance.score)
+        instance.tags.set(tags)
+        instance.save()
+        return instance
 
 class ChannelSerializer(TagSerializer):
     posts = PostSerializer(many=True, read_only=False)
