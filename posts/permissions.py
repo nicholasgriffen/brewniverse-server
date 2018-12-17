@@ -15,7 +15,7 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
         # Write permissions are only allowed to the owner of the postf.
         if hasattr(obj, 'author'):
             if request.query_params.get('vote'):
-                return True
+                return (set(request.data.keys()) == set(['score']))
             else:
                 return obj.author == request.user
         else:
