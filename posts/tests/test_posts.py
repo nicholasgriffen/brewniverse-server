@@ -5,15 +5,22 @@ from posts.models import Post, Brewser, Tag
 
 class PostTests(APITestCase):
     def setUp(self):
-        user = Brewser.objects.create(
+        digijan = Brewser.objects.create(
             username='Digijan',
             email='digijan@test.net',
             picture='http://cdn.forum280.org/logos/forum280_logo_no_tagline.png',
             password='janpass2018'
         )
-        
+
+        notDigijan = Brewser.objects.create(
+            username='NotDigijan',
+            email='notdigijan@test.net',
+            picture='http://cdn.forum280.org/logos/forum280_logo_no_tagline.png',
+            password='janpass2018'
+        )
+
         post = Post.objects.create(
-            author=user,
+            author=digijan,
             title='Duff Good',
             content='Duff Man right',
             picture='http://cdn.forum280.org/logos/forum280_logo_no_tagline.png',
@@ -33,7 +40,7 @@ class PostTests(APITestCase):
         POST to /posts/ with authenticated user creates new post with
         that user as author.
         """
-        self.client.force_authenticate(user=Brewser.objects.get(username='Digijan'))
+        self.client.force_authenticate(user=Brewser.objects.get(id=1))
         url = '/posts/'
         
         data = {
@@ -62,7 +69,7 @@ class PostTests(APITestCase):
         """
         PATCH to /posts/:id with authenticated user matching post author updates post
         """
-        self.client.force_authenticate(user=Brewser.objects.get(username='Digijan'))
+        self.client.force_authenticate(user=Brewser.objects.get(id=1))
         url = '/posts/1'
         
         data = {'tags': [{'tag':'duffman'}]}
@@ -85,13 +92,7 @@ class PostTests(APITestCase):
         PATCH to /posts/:id?vote=true with authenticated user not matching post author
         does not update post if body contains attributes other than score
         """
-        user = Brewser.objects.create(
-            username='NotDigijan',
-            email='notdigijan@test.net',
-            picture='http://cdn.forum280.org/logos/forum280_logo_no_tagline.png',
-            password='janpass2018'
-        )
-        self.client.force_authenticate(user=user)
+        self.client.force_authenticate(user=Brewser.objects.get(id=2))
         url = '/posts/1?vote=true'
         
         data = {'title': 'Duff man is lame!'}
@@ -105,13 +106,7 @@ class PostTests(APITestCase):
         PATCH to /posts/:id?vote=true with authenticated user not matching post author
         does update post if body contains only score
         """
-        user = Brewser.objects.create(
-            username='NotDigijan',
-            email='notdigijan@test.net',
-            picture='http://cdn.forum280.org/logos/forum280_logo_no_tagline.png',
-            password='janpass2018'
-        )
-        self.client.force_authenticate(user=user)
+        self.client.force_authenticate(user=Brewser.objects.get(id=2))
         url = '/posts/1?vote=true'
         
         data = {'score': 10}
@@ -130,5 +125,19 @@ class PostTests(APITestCase):
             'score': 10,
             'tags': [{'tag':'duff', 'posts': [1]}, {'tag': 'beer', 'posts': [1]}]
         })
-    
+def test_delete_other_post(self):
+        """
+        DELETE to /posts/:id with authenticated user not matching post author
+        does not delete post
+        """
+
+        self.client.force_authenticate(user=Brewser.objects.get(id=2))
+        url = '/posts/1?vote=true'
+        
+        
+        response = self.client.delete(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(Post.objects.count(), 1)
+        self.assertEqual(response.data, None)
+
         
