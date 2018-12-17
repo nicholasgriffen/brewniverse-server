@@ -125,19 +125,32 @@ class PostTests(APITestCase):
             'score': 10,
             'tags': [{'tag':'duff', 'posts': [1]}, {'tag': 'beer', 'posts': [1]}]
         })
-def test_delete_other_post(self):
-        """
-        DELETE to /posts/:id with authenticated user not matching post author
-        does not delete post
-        """
+    def test_delete_other_post(self):
+            """
+            DELETE to /posts/:id with authenticated user not matching post author
+            does not delete post
+            """
 
-        self.client.force_authenticate(user=Brewser.objects.get(id=2))
-        url = '/posts/1?vote=true'
-        
-        
-        response = self.client.delete(url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(Post.objects.count(), 1)
-        self.assertEqual(response.data, None)
+            self.client.force_authenticate(user=Brewser.objects.get(id=2))
+            url = '/posts/1'
+            
+            
+            response = self.client.delete(url)
+            self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)            
+            self.assertEqual(Post.objects.count(), 1)
+
+    def test_delete_own_post(self):
+            """
+            DELETE to /posts/:id with authenticated user matching post author deletes post
+            """
+
+            self.client.force_authenticate(user=Brewser.objects.get(id=1))
+            url = '/posts/1'
+            
+            
+            response = self.client.delete(url)
+            self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+            self.assertEqual(Post.objects.count(), 0)
+            self.assertEqual(response.data, None)
 
         
