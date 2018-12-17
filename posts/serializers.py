@@ -23,6 +23,7 @@ class PostSerializer(serializers.ModelSerializer):
                 'rating', 
                 'score',
                 'tags')
+                
     def create(self, validated_data):
         instance = Post.objects.create(
             author=self.context['request'].user,
