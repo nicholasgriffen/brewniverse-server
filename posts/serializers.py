@@ -27,6 +27,7 @@ class PostSerializer(serializers.ModelSerializer):
         if 'score' in validated_data:
             if validated_data['score'] != instance.score:
                 instance.score = validated_data['score']
+                instance.save()
                 return instance
 
         newTags = []
