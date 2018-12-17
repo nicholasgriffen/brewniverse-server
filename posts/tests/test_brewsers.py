@@ -112,15 +112,15 @@ class BrewserTests(APITestCase):
         self.client.force_authenticate(user=Brewser.objects.get(username='Digijan'))
 
         url = '/users/1'
-        response = self.client.patch(url, {'email': 'digijan@test.com'})
+        response = self.client.patch(url, {'channels': [{'tag': 'testCase'}]})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, {
             'id': 1,
             'username': 'Digijan',
-            'email': 'digijan@test.com',
+            'email': 'digijan@test.net',
             'picture': 'http://cdn.forum280.org/logos/forum280_logo_no_tagline.png',
             'posts': [],
-            'channels': []
+            'channels': [{'tag': 'testCase', 'posts': []}]
         })
     # U        
     def test_patch_other_brewser(self):
