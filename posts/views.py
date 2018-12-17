@@ -59,8 +59,10 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
 class ChannelList(generics.ListAPIView):
     queryset = Tag.objects.all()
     serializer_class = ChannelSerializer
+    permission_classes = ()
 
 class ChannelDetail(generics.RetrieveAPIView):
     queryset = Tag.objects.all()
     serializer_class = ChannelSerializer
     lookup_field = 'tag' 
+    permission_classes = ()

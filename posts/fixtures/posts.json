@@ -131,7 +131,7 @@
     "pk": 7,
     "fields": {
         "tag": "amber",
-        "posts": [2]
+        "posts": [3]
     }
 },
 { 
@@ -139,7 +139,7 @@
     "pk": 8,
     "fields": {
         "tag": "imperial", 
-        "posts": [3]
+        "posts": [2]
     }
 }
   
