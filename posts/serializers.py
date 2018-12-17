@@ -23,6 +23,34 @@ class PostSerializer(serializers.ModelSerializer):
                 'rating', 
                 'score',
                 'tags')
+    def create(self, validated_data):
+        instance = Post.objects.create(
+            author=self.context['request'].user,
+            title=validated_data['title'],
+            content=validated_data['content'],
+            picture=validated_data['picture'],
+            rating=validated_data['rating'],
+            score=validated_data['score']
+        )
+        modelTags = []
+        # Iterate over request tags 
+        if 'tags' in validated_data:
+            for dataTag in validated_data['tags']:
+                # Look up tag
+                # Create if does not exist
+                try:
+                    found = Tag.objects.get(tag=dataTag['tag'])
+                except ObjectDoesNotExist: 
+                    found = Tag.objects.create(tag=dataTag['tag'])
+                # accumulate            
+                # associate post with tag
+                modelTags = modelTags + [found]
+                found.posts.add(instance)
+            # call .set since instance is already saved
+        instance.tags.set(modelTags)
+        instance.save()
+        return instance
+
     def update(self, instance, validated_data):
         if 'score' in validated_data:
             if validated_data['score'] != instance.score:
