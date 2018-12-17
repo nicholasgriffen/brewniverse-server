@@ -24,6 +24,11 @@ class PostSerializer(serializers.ModelSerializer):
                 'score',
                 'tags')
     def update(self, instance, validated_data):
+        if 'score' in validated_data:
+            if validated_data[score] !== instance.score:
+                instance.score = validated_data['score']
+                return instance
+                
         newTags = []
         if 'tags' in validated_data:  
             for dataTag in validated_data['tags']:
@@ -39,7 +44,6 @@ class PostSerializer(serializers.ModelSerializer):
         instance.content = validated_data.get('content', instance.content)
         instance.picture = validated_data.get('picture', instance.picture)
         instance.rating = validated_data.get('rating', instance.rating)
-        instance.score = validated_data.get('score', instance.score)
         instance.save()
         return instance
 
