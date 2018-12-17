@@ -35,6 +35,44 @@ class PostTests(APITestCase):
         
         post.tags.set([duff, beer])
         
+    def test_get_post(self):    
+        """
+        GET to /posts/:id retrieves Post matching :id
+        """ 
+        url = '/posts/1'
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, {
+            'id': 1,
+            'author': 'Digijan',
+            'authorId': 1,
+            'title': 'Duff Good',
+            'content': 'Duff Man right',
+            'picture': 'http://cdn.forum280.org/logos/forum280_logo_no_tagline.png',
+            'rating': 5,
+            'score': 2,
+            'tags': [{'tag':'duff', 'posts': [1]}, {'tag': 'beer', 'posts': [1]}]
+        })
+
+    def test_get_posts(self):    
+        """
+        GET to /posts/ retrieves Posts
+        """ 
+        url = '/posts/'
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, [{
+            'id': 1,
+            'author': 'Digijan',
+            'authorId': 1,
+            'title': 'Duff Good',
+            'content': 'Duff Man right',
+            'picture': 'http://cdn.forum280.org/logos/forum280_logo_no_tagline.png',
+            'rating': 5,
+            'score': 2,
+            'tags': [{'tag':'duff', 'posts': [1]}, {'tag': 'beer', 'posts': [1]}]
+        }])
+
     def test_post_post(self):
         """
         POST to /posts/ with authenticated user creates new post with
