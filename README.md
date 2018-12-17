@@ -59,7 +59,7 @@ PUT
   
 DELETE
   - body: null  
-  - headers: `"Bearer": <token>`  
+  - headers: `"Authorization": "Bearer <token>"`  
   - return: null  
 
 ## `/users/`  
@@ -71,7 +71,7 @@ GET
 
 POST
   - body: `JSON: { email: String, username: String, password: String, picture: String }`
-  - headers: "Content-Type": "application/json" 
+  - headers: `"Content-Type": "application/json"` 
   - return: `Object: { email: String, id: Int, username: String, picture: String, posts: Array<Post>, channels: Array<Tag> }`
 
 ## `/users/:id`  
