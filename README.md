@@ -1,5 +1,5 @@
 # Development 
-## Activate Virtual Environment [(what's virtual environment?)](https://docs.python.org/3/library/venv.html)
+## Activate Virtual Environment [(what's venv?)](https://docs.python.org/3/library/venv.html)
 `python3 -m venv ./brewniverse-env`    
 `cd brewniverse-env`    
 `source ./bin/activate`
