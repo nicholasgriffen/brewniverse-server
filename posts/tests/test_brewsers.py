@@ -124,7 +124,7 @@ class BrewserTests(APITestCase):
             'username': 'Digijan',
             'picture': self.digijanPicture,
             'posts': [],
-            'channels': [{'tag': 'testCase', 'posts': []}]
+            'channels': [{'tag': 'testcase', 'posts': []}]
         })
     # U        
     def test_patch_other_brewser(self):
@@ -142,6 +142,6 @@ class BrewserTests(APITestCase):
 
         url = '/users/1'
         response = self.client.patch(url, {'email': 'digijan@test.com'})
-        
+
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(Brewser.objects.get(id=1).email, 'digijan@test.net')
