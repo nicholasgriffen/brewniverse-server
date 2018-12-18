@@ -107,7 +107,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     def gravatar_url(self, email):
         return "https://www.gravatar.com/avatar/%s?%s" % (
-            hashlib.md5(email.lower().encode('utf-8')).hexdigest(), 
+            hashlib.md5(email.strip().lower().encode('utf-8')).hexdigest(), 
             urllib.parse.urlencode({
                 'd': self.gravatar_default, 
                 's': str(self.gravatar_size)
@@ -117,12 +117,12 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         gravatar = self.gravatar_url(email=validated_data['email'])
         user = Brewser.objects.create(
-            username=validated_data['username'],
-            email=validated_data['email'],
+            username=validated_data['username'].strip(),
+            email=validated_data['email'].strip(),
             picture=gravatar
         )
         # hash pw and save a hash
-        user.set_password(validated_data['password'])
+        user.set_password(validated_data['password'].strip())
         user.save()
 
         return user
