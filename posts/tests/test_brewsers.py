@@ -28,6 +28,7 @@ class BrewserTests(APITestCase):
             'password': 'janpass2018'
         }
         response = self.client.post(url, data)
+
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data, {
             'id': 2,
@@ -44,6 +45,7 @@ class BrewserTests(APITestCase):
         """ 
         url = '/users/1'
         response = self.client.get(url)
+
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, {
             'id': 1,
@@ -59,6 +61,7 @@ class BrewserTests(APITestCase):
         """ 
         url = '/users/'
         response = self.client.get(url)
+
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, [{
             'id': 1,
@@ -78,6 +81,7 @@ class BrewserTests(APITestCase):
 
         url = '/users/1'
         response = self.client.delete(url)
+
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(response.data, None)
         self.assertEqual(Brewser.objects.count(), 0)
@@ -99,6 +103,7 @@ class BrewserTests(APITestCase):
 
         url = '/users/1'
         response = self.client.delete(url)
+
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(Brewser.objects.count(), 2)
 
@@ -112,6 +117,7 @@ class BrewserTests(APITestCase):
 
         url = '/users/1'
         response = self.client.patch(url, {'channels': [{'tag': 'testCase'}]})
+
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, {
             'id': 1,
@@ -136,5 +142,6 @@ class BrewserTests(APITestCase):
 
         url = '/users/1'
         response = self.client.patch(url, {'email': 'digijan@test.com'})
+        
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(Brewser.objects.get(id=1).email, 'digijan@test.net')

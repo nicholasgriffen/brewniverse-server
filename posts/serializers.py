@@ -53,14 +53,18 @@ class PostSerializer(serializers.ModelSerializer):
                 found.posts.add(instance)
             # call .set since instance is already saved
         instance.tags.set(modelTags)
+        
         instance.save()
+
         return instance
 
     def update(self, instance, validated_data):
         if 'score' in validated_data:
             if validated_data['score'] != instance.score:
                 instance.score = validated_data['score']
+
                 instance.save()
+                
                 return instance
 
         newTags = []
@@ -74,11 +78,14 @@ class PostSerializer(serializers.ModelSerializer):
                 newTags = newTags + [found]
 
         instance.tags.set(newTags)
+        
         instance.title = validated_data.get('title', instance.title)
         instance.content = validated_data.get('content', instance.content)
         instance.picture = validated_data.get('picture', instance.picture)
         instance.rating = validated_data.get('rating', instance.rating)
+        
         instance.save()
+        
         return instance
 
 class ChannelSerializer(TagSerializer):
@@ -124,6 +131,7 @@ class UserSerializer(serializers.ModelSerializer):
         )
         # hash pw and save a hash
         user.set_password(validated_data['password'].strip())
+        
         user.save()
 
         return user
@@ -144,9 +152,12 @@ class UserSerializer(serializers.ModelSerializer):
         if 'password' in validated_data:
             instance.set_password(validated_data['password'])
 
+        instance.channels.set(tags)
+
         instance.email = validated_data.get('email', instance.email)
         instance.picture = validated_data.get('picture', instance.picture)
         instance.username = validated_data.get('username', instance.username)
-        instance.channels.set(tags)
+       
         instance.save()
+        
         return instance
