@@ -87,7 +87,7 @@ class UserSerializer(serializers.ModelSerializer):
     posts = PostSerializer(many=True, read_only=False, required=False)
     channels = ChannelSerializer(many=True, read_only=False, required=False)
     
-    gravatar_default = "identicon"
+    gravatar_default = "retro"
     gravatar_size = 150
 
     class Meta: 
