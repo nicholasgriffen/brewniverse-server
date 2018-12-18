@@ -1,17 +1,17 @@
 # Development 
-## Activate Virtual Environment
+## Activate Virtual Environment [(what's virtual environment?)](https://docs.python.org/3/library/venv.html)
 `python3 -m venv ./brewniverse-env`    
 `cd brewniverse-env`    
 `source ./bin/activate`
 ## Clone Project
 `git clone git@github.com:nicholasgriffen/brewniverse-server`
-## Install Dependencies
+## Install Dependencies [(what's pip?)](https://github.com/pypa/pip/blob/master/README.rst)
 `cd brewniverse-server`   
 `pip install -r requirements.txt`  
 ## Set Environment Variables   
 `CORS_WHITELIST=['localhost:8000']`  
 `SECRET='$3CR3T'`  
-## Run the Tests
+## Run the Tests [(what's manage.py?)](https://docs.djangoproject.com/en/2.1/ref/django-admin/)
 `python manage.py test posts/`
 ## Run the Server
 `python manage.py runserver`
