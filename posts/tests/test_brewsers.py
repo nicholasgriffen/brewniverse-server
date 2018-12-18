@@ -2,13 +2,17 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 
 from posts.models import Brewser
+from posts.serializers import UserSerializer
 
 class BrewserTests(APITestCase):
+    digijanPicture = UserSerializer().gravatar_url(email='digijan@test.net')
+    anajanPicture = UserSerializer().gravatar_url(email='anajan@test.net')
+    
     def setUp(self):
         Brewser.objects.create(
             username='Digijan',
             email='digijan@test.net',
-            picture='http://cdn.forum280.org/logos/forum280_logo_no_tagline.png',
+            picture=self.digijanPicture,
             password='janpass2018'
         )
         
@@ -21,7 +25,6 @@ class BrewserTests(APITestCase):
         data = {
             'username': 'Anajan',
             'email': 'anajan@test.net',
-            'picture': 'http://cdn.forum280.org/logos/forum280_logo_no_tagline.png',
             'password': 'janpass2018'
         }
         response = self.client.post(url, data)
@@ -29,8 +32,7 @@ class BrewserTests(APITestCase):
         self.assertEqual(response.data, {
             'id': 2,
             'username': 'Anajan',
-            'email': 'anajan@test.net',
-            'picture': 'http://cdn.forum280.org/logos/forum280_logo_no_tagline.png',
+            'picture': self.anajanPicture,
             'posts': [],
             'channels': []
         })
@@ -46,8 +48,7 @@ class BrewserTests(APITestCase):
         self.assertEqual(response.data, {
             'id': 1,
             'username': 'Digijan',
-            'email': 'digijan@test.net',
-            'picture': 'http://cdn.forum280.org/logos/forum280_logo_no_tagline.png',
+            'picture': self.digijanPicture,
             'posts': [],
             'channels': []
         })
@@ -62,8 +63,7 @@ class BrewserTests(APITestCase):
         self.assertEqual(response.data, [{
             'id': 1,
             'username': 'Digijan',
-            'email': 'digijan@test.net',
-            'picture': 'http://cdn.forum280.org/logos/forum280_logo_no_tagline.png',
+            'picture': self.digijanPicture,
             'posts': [],
             'channels': []
         }])
@@ -91,7 +91,6 @@ class BrewserTests(APITestCase):
         user = Brewser.objects.create(
             username='NotDigijan',
             email='notdigijan@test.net',
-            picture='http://cdn.forum280.org/logos/forum280_logo_no_tagline.png',
             password='janpass2018'
         )
         
@@ -117,8 +116,7 @@ class BrewserTests(APITestCase):
         self.assertEqual(response.data, {
             'id': 1,
             'username': 'Digijan',
-            'email': 'digijan@test.net',
-            'picture': 'http://cdn.forum280.org/logos/forum280_logo_no_tagline.png',
+            'picture': self.digijanPicture,
             'posts': [],
             'channels': [{'tag': 'testCase', 'posts': []}]
         })
@@ -130,7 +128,6 @@ class BrewserTests(APITestCase):
         user = Brewser.objects.create(
             username='NotDigijan',
             email='notdigijan@test.net',
-            picture='http://cdn.forum280.org/logos/forum280_logo_no_tagline.png',
             password='janpass2018'
         )
          
