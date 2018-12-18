@@ -86,6 +86,9 @@ class ChannelSerializer(TagSerializer):
 class UserSerializer(serializers.ModelSerializer):
     posts = PostSerializer(many=True, read_only=False, required=False)
     channels = ChannelSerializer(many=True, read_only=False, required=False)
+    
+    gravatar_default = "identicon"
+    gravatar_size = 150
 
     class Meta: 
         model = Brewser 
@@ -103,10 +106,12 @@ class UserSerializer(serializers.ModelSerializer):
         }
 
     def gravatar_url(self, email):
-        default = "identicon"
         return "https://www.gravatar.com/avatar/%s?%s" % (
             hashlib.md5(email.lower().encode('utf-8')).hexdigest(), 
-            urllib.parse.urlencode({'d':default, 's':str(150)})
+            urllib.parse.urlencode({
+                'd': self.gravatar_default, 
+                's': str(self.gravatar_size)
+                })
             )
 
     def create(self, validated_data):
