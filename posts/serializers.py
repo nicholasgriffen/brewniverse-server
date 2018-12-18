@@ -1,3 +1,6 @@
+import urllib
+import hashlib
+
 from rest_framework import serializers
 from django.core.exceptions import ObjectDoesNotExist
 from posts.models import Post, Tag, Brewser
@@ -83,7 +86,7 @@ class ChannelSerializer(TagSerializer):
 class UserSerializer(serializers.ModelSerializer):
     posts = PostSerializer(many=True, read_only=False, required=False)
     channels = ChannelSerializer(many=True, read_only=False, required=False)
-    
+
     class Meta: 
         model = Brewser 
         fields = ('id', 
@@ -93,14 +96,25 @@ class UserSerializer(serializers.ModelSerializer):
                 'posts',
                 'channels',
                 'password')
-              #keyword args  
-        extra_kwargs = {'password': {'write_only': True}}
+        extra_kwargs = {
+            'password': {'write_only': True},
+            'email': {'write_only': True},
+            'picture': {'required': False}            
+        }
+
+    def gravatar_url(self, email):
+        default = "identicon"
+        return "https://www.gravatar.com/avatar/%s?%s" % (
+            hashlib.md5(email.lower().encode('utf-8')).hexdigest(), 
+            urllib.parse.urlencode({'d':default, 's':str(150)})
+            )
 
     def create(self, validated_data):
+        gravatar = self.gravatar_url(email=validated_data['email'])
         user = Brewser.objects.create(
             username=validated_data['username'],
             email=validated_data['email'],
-            picture=validated_data['picture']
+            picture=gravatar
         )
         # hash pw and save a hash
         user.set_password(validated_data['password'])

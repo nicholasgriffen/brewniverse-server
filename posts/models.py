@@ -18,7 +18,7 @@ class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='posts', on_delete=models.CASCADE)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
-    picture = models.CharField(max_length=255)
+    picture = models.URLField(max_length=255)
     rating = models.IntegerField()
     score = models.IntegerField()
     tags = models.ManyToManyField('posts.Tag')    
@@ -27,4 +27,4 @@ class Post(models.Model):
 
 class Brewser(AbstractUser):
     channels = models.ManyToManyField('posts.Tag')    
-    picture = models.CharField(max_length=255) 
+    picture = models.URLField(max_length=255) 
