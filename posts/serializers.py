@@ -44,9 +44,9 @@ class PostSerializer(serializers.ModelSerializer):
                 # Look up tag
                 # Create if does not exist
                 try:
-                    found = Tag.objects.get(tag=dataTag['tag'])
+                    found = Tag.objects.get(tag=dataTag['tag'].lower())
                 except ObjectDoesNotExist: 
-                    found = Tag.objects.create(tag=dataTag['tag'])
+                    found = Tag.objects.create(tag=dataTag['tag'].lower())
                 # accumulate            
                 # associate post with tag
                 modelTags = modelTags + [found]
@@ -71,9 +71,9 @@ class PostSerializer(serializers.ModelSerializer):
         if 'tags' in validated_data:  
             for dataTag in validated_data['tags']:
                 try:
-                    found = Tag.objects.get(tag=dataTag['tag'])
+                    found = Tag.objects.get(tag=dataTag['tag'].lower())
                 except ObjectDoesNotExist: 
-                    found = Tag.objects.create(tag=dataTag['tag'])
+                    found = Tag.objects.create(tag=dataTag['tag'].lower())
                 found.posts.add(instance)
                 newTags = newTags + [found]
 
@@ -143,9 +143,9 @@ class UserSerializer(serializers.ModelSerializer):
         if 'channels' in validated_data:
             for channel in validated_data['channels']:
                 try: 
-                    tagInstance = Tag.objects.get(tag=channel['tag'])
+                    tagInstance = Tag.objects.get(tag=channel['tag'].lower())
                 except ObjectDoesNotExist:
-                    tagInstance = Tag.objects.create(tag=channel['tag'])
+                    tagInstance = Tag.objects.create(tag=channel['tag'].lower())
                 tags = tags + [tagInstance]
                 
         #update password 
@@ -159,5 +159,5 @@ class UserSerializer(serializers.ModelSerializer):
         instance.username = validated_data.get('username', instance.username)
        
         instance.save()
-        
+
         return instance
