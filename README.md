@@ -69,29 +69,29 @@ DELETE
 GET
   - body: null
   - headers: null
-  - return: `Array<Object> [{ email: String, id: Int, username: String, picture: String, posts: Array<Post>, channels: Array<Tag> }]`  
+  - return: `Array<Object> [{ id: Int, username: String, picture: String, posts: Array<Post>, channels: Array<Tag> }]`  
 
 POST
-  - body: `JSON: { email: String, username: String, password: String, picture: String }`
+  - body: `JSON: { email: String, username: String, password: String }`
   - headers: `"Content-Type": "application/json"` 
-  - return: `Object: { email: String, id: Int, username: String, picture: String, posts: Array<Post>, channels: Array<Tag> }`
+  - return: `Object: { id: Int, username: String, picture: String, posts: Array<Post>, channels: Array<Tag> }`
 
 ## `/users/:id`  
 
 GET
   - body: null
   - headers: null
-  - return: `Object: { email: String, id: Int, username: String, picture: String, posts: Array<Post>, channels: Array<Tag> }`
+  - return: `Object: { id: Int, username: String, picture: String, posts: Array<Post>, channels: Array<Tag> }`
 
 PATCH  
   - body: `JSON: { email: String?, username: String?, picture: String?, channels: Array<Tag>? }`   
   - headers: `"Content-Type": "application/json", "Authorization": "Bearer <token>"`  
-  - return: `Object: {  email: String, id: Int, username: String, picture: String, posts: Array<Post>, channels: Array<Tag> }`
+  - return: `Object: { id: Int, username: String, picture: String, posts: Array<Post>, channels: Array<Tag> }`
   
 PUT  
   - body: `JSON: { email: String, username: String, picture: String, channels: Array<Tag>  }`   
   - headers: `"Content-Type": "application/json", "Authorization": "Bearer <token>"`  
-  - return: `Object: {  email: String, id: Int, username: String, picture: String, posts: Array<Post>, channels: Array<Tag> }`
+  - return: `Object: { id: Int, username: String, picture: String, posts: Array<Post>, channels: Array<Tag> }`
   
 DELETE
   - body: null  
