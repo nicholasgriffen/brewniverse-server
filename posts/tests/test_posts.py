@@ -91,7 +91,7 @@ class PostTests(APITestCase):
         }
         
         response = self.client.post(url, data)
-        # self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data, {
             'id': 2,
             'author': 'Digijan',
