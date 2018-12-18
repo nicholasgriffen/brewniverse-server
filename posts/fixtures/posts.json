@@ -1,146 +1,232 @@
 [
-
     {
-      "model": "posts.post",    
-      
-      "pk": 1,
-    
-      "fields": {
-        "author": 1, 
-
-        "title": "Avery Fimbulvvinter",   
-      
-        "content": "It is incredible.", 
-      
-        "score": 5,
-      
-        "rating": 5,
-      
-        "picture": "https://cdn.beeradvocate.com/im/beers/310321.jpg",
-        
-        "created_at": "2018-01-14 00:00:00",
-        
-        "updated_at": "2018-11-14 00:00:00",
-        
-        "tags": [1, 2, 3]
-      }
+        "model": "posts.brewser",
+        "pk": 1,
+        "fields":{
+            "username": "Griff",
+            "email": "nicholas.s.griffen@gmail.com",
+            "picture": "https://www.gravatar.com/avatar/02cc73b6d7480e0ba9da2cbd7630a7e7?d=retro&s=150",
+            "password": "development"
+        }
     },
-  
     {
-    "model": "posts.post",
-  
-    "pk": 2,
-  
-    "fields":{
-      "author": 1, 
-
-      "title": "Old Rasputin",
-  
-      "content": "What a Russian day in the neighborhood.",
-    
-      "score": 3,
-    
-      "rating": 5,
-    
-      "picture": "https://www.totalwine.com/media/sys_master/twmmedia/h75/h5d/9071470805022.png",
-      "created_at": "2018-01-14 00:00:00",
-      
-      "updated_at": "2018-11-14 00:00:00",
-
-      "tags": [1, 5, 4, 8]
+        "model": "posts.brewser",
+        "pk": 2,
+        "fields":{
+            "username": "JP",
+            "email": "jp@parallelbrews.com",
+            "picture": "https://www.gravatar.com/avatar/ce059ee1c59084a4b44e447e025ed39e?d=retro&s=150",
+            "password": "development"
+        }
+    },
+    {
+        "model": "posts.brewser",
+        "pk": 3,
+        "fields":{
+            "username": "Tymm",
+            "email": "tymm@parallelbrews.com",
+            "picture": "https://www.gravatar.com/avatar/5eb7db7b1c2f6632105d5d228c339399?d=retro&s=150",
+            "password": "development"
+        }
+    },
+    {
+        "model": "posts.post",    
+        "pk": 1,
+        "fields":{
+            "author": 1, 
+            "content": "It is incredible.", 
+            "created_at": "2018-01-14 00:00:00",
+            "picture": "https://cdn.beeradvocate.com/im/beers/310321.jpg",
+            "rating": 5,
+            "score": 5,
+            "tags": [1, 2, 3],
+            "title": "Avery Fimbulvvinter",   
+            "updated_at": "2018-11-14 00:00:00"
+        }
+    },
+    {
+        "model": "posts.post",
+        "pk": 2,
+        "fields":{
+            "author": 1, 
+            "content": "What a Russian day in the neighborhood. Cold and unfamiliar",
+            "created_at": "2018-01-14 00:00:00",
+            "picture": "https://www.totalwine.com/media/sys_master/twmmedia/h75/h5d/9071470805022.png",
+            "rating": 2,
+            "score": 10,
+            "tags": [1, 5, 4, 8],
+            "title": "Old Rasputin",
+            "updated_at": "2018-11-14 00:00:00"
+        }
+    },
+    {
+        "model": "posts.post",
+        "pk": 3,
+        "fields":{   
+            "author": 1, 
+            "content": "Does not taste like coins at all.",
+            "created_at": "2018-01-14 00:00:00",
+            "picture": "https://cdn.beeradvocate.com/im/beers/740.jpg",
+            "rating": 3,
+            "score": 4,
+            "tags": [1, 6, 7],
+            "title": "90 Shilling",
+            "updated_at": "2018-11-14 00:00:00"
+        }
+    },
+    {
+        "model": "posts.post",    
+        "pk": 4,
+        "fields":{
+            "author": 2, 
+            "content": "It is inedible.", 
+            "created_at": "2018-01-14 00:00:00",
+            "picture": "https://cdn.beeradvocate.com/im/beers/310321.jpg",
+            "rating": 1,
+            "score": 5,
+            "tags": [1, 2, 3],
+            "title": "Avery Fimbulvvinter",   
+            "updated_at": "2018-11-14 00:00:00"
+        }
+    },
+    {
+        "model": "posts.post",
+        "pk": 5,
+        "fields":{
+            "author": 2, 
+            "content": "What a Russian day in the neighborhood. Warm and inviting",
+            "created_at": "2018-01-14 00:00:00",
+            "picture": "https://www.totalwine.com/media/sys_master/twmmedia/h75/h5d/9071470805022.png",
+            "rating": 5,
+            "score": 3,
+            "tags": [1, 5, 4, 8],
+            "title": "Old Rasputin",
+            "updated_at": "2018-11-14 00:00:00"
+        }
+    },
+    {
+        "model": "posts.post",
+        "pk": 6,
+        "fields":{   
+            "author": 2, 
+            "content": "Does not taste like coins at all.",
+            "created_at": "2018-01-14 00:00:00",
+            "picture": "https://cdn.beeradvocate.com/im/beers/740.jpg",
+            "rating": 5,
+            "score": 4,
+            "tags": [1, 6, 7],
+            "title": "90 Shilling",
+            "updated_at": "2018-11-14 00:00:00"
+        }
+    },
+    {
+        "model": "posts.post",    
+        "pk": 7,
+        "fields":{
+            "author": 3, 
+            "content": "It is almost incredible.", 
+            "created_at": "2018-01-14 00:00:00",
+            "picture": "https://cdn.beeradvocate.com/im/beers/310321.jpg",
+            "rating": 4,
+            "score": 5,
+            "tags": [1, 2, 3],
+            "title": "Avery Fimbulvvinter",   
+            "updated_at": "2018-11-14 00:00:00"
+        }
+    },
+    {
+        "model": "posts.post",
+        "pk": 8,
+        "fields":{
+            "author": 3, 
+            "content": "What a Russian day in the neighborhood. Warm and inviting",
+            "created_at": "2018-01-14 00:00:00",
+            "picture": "https://www.totalwine.com/media/sys_master/twmmedia/h75/h5d/9071470805022.png",
+            "rating": 4,
+            "score": 3,
+            "tags": [1, 5, 4, 8],
+            "title": "Old Rasputin",
+            "updated_at": "2018-11-14 00:00:00"
+        }
+    },
+    {
+        "model": "posts.post",
+        "pk": 9,
+        "fields":{   
+            "author": 3, 
+            "content": "Does not taste like coins at all. False advertising",
+            "created_at": "2018-01-14 00:00:00",
+            "picture": "https://cdn.beeradvocate.com/im/beers/740.jpg",
+            "rating": 1,
+            "score": 4,
+            "tags": [1, 6, 7],
+            "title": "90 Shilling",
+            "updated_at": "2018-11-14 00:00:00"
+        }
+    },
+    { 
+        "model": "posts.tag",
+        "pk": 1,
+        "fields": {
+            "tag": "beer", 
+            "posts": [1, 2, 3, 4, 5, 6, 7, 8, 9]
+            }
+    },
+    { 
+        "model": "posts.tag",
+        "pk": 2,
+        "fields": {
+            "tag": "avery",
+            "posts": [1, 4, 7]
+        } 
+    },
+    { 
+        "model": "posts.tag",
+        "pk": 3,
+        "fields": {
+            "tag": "belgian",
+            "posts": [1, 4, 7]
+        } 
+    },
+    { 
+        "model": "posts.tag",
+        "pk": 4,
+        "fields": {
+            "tag": "stout", 
+            "posts": [2, 5, 8]
+        }
+    },
+    { 
+        "model": "posts.tag",
+        "pk": 5,
+        "fields": {
+            "tag": "north coast", 
+            "posts": [2, 5, 8]
+        }
+    },
+    { 
+        "model": "posts.tag",        
+        "pk": 6,
+        "fields": {
+            "tag": "odell", 
+            "posts": [3, 6, 9]
+        }
+    },
+    { 
+        "model": "posts.tag",
+        "pk": 7,
+        "fields": {
+            "tag": "amber",
+            "posts": [3, 6, 9]
+        }
+    },
+    { 
+        "model": "posts.tag",
+        "pk": 8,
+        "fields": {
+            "tag": "imperial", 
+            "posts": [2, 5, 8]
+        }
     }
   
-  },
-  
-  {
-    "model": "posts.post",
-    
-    "pk": 3,
-  
-    "fields": {   
-      "author": 1, 
-      "title": "90 Shilling",
-  
-      "content": "Does not taste like coins at all.",
-    
-      "score": 4,
-    
-      "rating": 5,
-    
-      "picture": "https://cdn.beeradvocate.com/im/beers/740.jpg",
-      
-      "created_at": "2018-01-14 00:00:00",
-      
-      "updated_at": "2018-11-14 00:00:00",
-      
-      "tags": [1, 6, 7]
-    }
-  
-  },
-
-  { 
-    "model": "posts.tag",
-    "pk": 1,
-    "fields": {
-        "tag": "beer", 
-        "posts": [1, 2, 3]
-    }
-},
-{ 
-    "model": "posts.tag",
-    "pk": 2,
-    "fields": {
-        "tag": "avery",
-        "posts": [1]
-    } 
-},
-{ 
-    "model": "posts.tag",
-    "pk": 3,
-    "fields": {
-        "tag": "belgian",
-        "posts": [1]
-    } 
-},
-{ 
-    "model": "posts.tag",
-    "pk": 4,
-    "fields": {
-        "tag": "stout", 
-        "posts": [2]
-    }
-},
-{ 
-    "model": "posts.tag",
-    "pk": 5,
-    "fields": {
-        "tag": "north coast", 
-        "posts": [2]
-    }
-},
-{ 
-    "model": "posts.tag",        
-    "pk": 6,
-    "fields": {
-        "tag": "odell", 
-        "posts": [3]
-    }
-},
-{ 
-    "model": "posts.tag",
-    "pk": 7,
-    "fields": {
-        "tag": "amber",
-        "posts": [3]
-    }
-},
-{ 
-    "model": "posts.tag",
-    "pk": 8,
-    "fields": {
-        "tag": "imperial", 
-        "posts": [2]
-    }
-}
-  
-  ]
+]
