@@ -1,7 +1,7 @@
 from rest_framework import generics, permissions 
 from django.core.exceptions import ObjectDoesNotExist
 
-from posts.permissions import IsOwnerOrReadOnly
+from posts.permissions import IsAuthorOrReadOnly
 
 from posts.models import Tag
 from posts.serializers import ChannelSerializer
@@ -23,7 +23,7 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,
-                          IsOwnerOrReadOnly)
+                          IsAuthorOrReadOnly)
 # Read (all), Create
 class UserList(generics.ListCreateAPIView):
     queryset = Brewser.objects.all()
@@ -35,7 +35,7 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Brewser.objects.all()
     serializer_class = UserSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,
-                          IsOwnerOrReadOnly)
+                          IsAuthorOrReadOnly)
 
 class ChannelList(generics.ListAPIView):
     queryset = Tag.objects.all()
