@@ -30,6 +30,7 @@ class PostTests(APITestCase):
         
         duff = Tag.objects.create(tag='duff')
         duff.posts.add(post)
+        
         beer = Tag.objects.create(tag='beer') 
         beer.posts.add(post)
         
@@ -172,7 +173,6 @@ class PostTests(APITestCase):
             self.client.force_authenticate(user=Brewser.objects.get(id=2))
             url = '/posts/1'
             
-            
             response = self.client.delete(url)
             self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)            
             self.assertEqual(Post.objects.count(), 1)
@@ -184,7 +184,6 @@ class PostTests(APITestCase):
 
             self.client.force_authenticate(user=Brewser.objects.get(id=1))
             url = '/posts/1'
-            
             
             response = self.client.delete(url)
             self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
