@@ -63,6 +63,13 @@ class PostSerializer(serializers.ModelSerializer):
             if validated_data['score'] != instance.score:
                 instance.score = validated_data['score']
 
+                instance.tags.set(instance.tags)
+                
+                instance.title = instance.title
+                instance.content = instance.content
+                instance.picture = instance.picture
+                instance.rating = instance.rating
+        
                 instance.save()
                 
                 return instance
