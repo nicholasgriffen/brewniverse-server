@@ -1,10 +1,11 @@
+from django.test import tag
+from rest_framework.test import APITestCase
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from rest_framework.test import APITestCase
 
-
+@tag('e2e', 'slow')
 class ClientTest(APITestCase):
 
     data = {
@@ -12,7 +13,7 @@ class ClientTest(APITestCase):
             'base': 'http://parallel-brewniverses.surge.sh/#/',
             'signup': 'signup',
             'home': 'all',
-        },
+        },     
         
         'user': {
             'email': "dijan@test.net",
