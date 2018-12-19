@@ -1,5 +1,7 @@
 from django.test import tag
+from rest_framework import status
 from rest_framework.test import APITestCase
+from rest_framework.test import RequestsClient
 from seleniumwire import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -70,10 +72,13 @@ class ClientTest(APITestCase):
             # log out 
 
             # delete user
-            self.browser.header_overrides = {
-                'Authorization': 'Bearer: ' + access_token 
-            }
-            self.browser.delete('/users/' + user_id) 
+            client = RequestsClient()
+            client.headers.update({
+                'Authorization': 'Bearer: ' + str(access_token) 
+            })
+            
+            response = client.delete('http://test-brew.herokuapp.com/users/' + user_id)
+            self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
         finally:
             self.browser.quit()
