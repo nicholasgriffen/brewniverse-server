@@ -1,7 +1,7 @@
+import requests
 from django.test import tag
 from rest_framework import status
 from rest_framework.test import APITestCase
-from rest_framework.test import RequestsClient
 from seleniumwire import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -20,8 +20,8 @@ class ClientTest(APITestCase):
         },     
         
         'user': {
-            'email': "nicholas@pb.com",
-            'name': "Nicholas",
+            'email': "nichos@pb.com",
+            'name': "Nichas",
             'password': "development",
         }
     }
@@ -72,12 +72,9 @@ class ClientTest(APITestCase):
             # log out 
 
             # delete user
-            client = RequestsClient()
-            client.headers.update({
-                'Authorization': 'Bearer: ' + str(access_token) 
-            })
+            headers = { 'Authorization': 'Bearer ' + str(access_token) }
             
-            response = client.delete('http://test-brew.herokuapp.com/users/' + user_id)
+            response = requests.delete('https://test-brew.herokuapp.com/users/' + user_id, headers=headers)
             self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
         finally:
