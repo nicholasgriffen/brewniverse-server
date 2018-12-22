@@ -13,7 +13,7 @@
 `SECRET='$3CR3T'`  
 ## Run the Tests [(what's manage.py?)](https://docs.djangoproject.com/en/2.1/ref/django-admin/)
 All tests: `python manage.py test posts/`  
-Exlclude end-to-end tests: `python manage.py test --exclude-tag=e2e posts/`   
+Exclude end-to-end tests: `python manage.py test --exclude-tag=e2e posts/`   
 ## Run the Server
 `python manage.py runserver`
 # Endpoints
