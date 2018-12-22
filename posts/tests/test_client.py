@@ -14,30 +14,33 @@ from posts.models import Brewser
 @tag('e2e', 'slow')
 class ClientTest(APITestCase):
 
-        urls = {
-            'base': 'http://parallel-brewniverses.surge.sh/#/',
-            'signup': 'signup',
-            'home': 'all',
-            'newPost': 'addpost',
-            'login': 'login'
-        }
-        testUser =  {
-            'username': os.environ.get('TEST_USER_NAME', 'Please configure TEST_USER_NAME'),
-            'password': os.environ.get('TEST_USER_PASS', 'Please configure TEST_USER_PASS')
-        }
-        newUser =  {
-            'email': "nicholas@pb.com",
-            'name': "Nicholas",
-            'password': "d3e\/elop?me1nt",
-        }
-        post = {
-         'title': 'Aromatic Arabic', 
-         'picture': 'https://1.bp.blogspot.com/-Nb7Zo6yQrCI/VuIMp8pYnHI/AAAAAAAAHXY/FcTJPjojsZcVhEvD_-hcViuk6QTW6ZCZw/s1600/Aromatic%2BArabic%2BPhilz.JPG', 
-         'rating': 5, 
-         'content': 'Rich, tasty, beautiful brew', 
-         'tags': 'coffee, dark roast, philz'   
-        }
+    urls = {
+        'base': 'http://parallel-brewniverses.surge.sh/#/',
+        'signup': 'signup',
+        'home': 'all',
+        'newPost': 'addpost',
+        'login': 'login',
+        'server': 'https://test-brew.herokuapp.com/'
     }
+    testUser =  {
+        'username': os.environ.get('TEST_USER_NAME', 'Please configure TEST_USER_NAME'),
+        'password': os.environ.get('TEST_USER_PASS', 'Please configure TEST_USER_PASS')
+    }
+    newUser =  {
+        'email': "nicholas@pb.com",
+        'name': "Nicholas",
+        'password': "d3e\/elop?me1nt",
+    }
+    post = {
+        'title': 'Aromatic Arabic', 
+        'picture': 'https://1.bp.blogspot.com/-Nb7Zo6yQrCI/VuIMp8pYnHI/AAAAAAAAHXY/FcTJPjojsZcVhEvD_-hcViuk6QTW6ZCZw/s1600/Aromatic%2BArabic%2BPhilz.JPG', 
+        'rating': 5, 
+        'content': 'Rich, tasty, beautiful brew', 
+        'tags': 'coffee, dark roast, philz'   
+    }
+    
+    def getTokenFromCookie(self):
+        return self.browser.get_cookie('access_token')['value']
 
     def setUp(self):
 
@@ -51,32 +54,62 @@ class ClientTest(APITestCase):
         options.set_headless()
         
         self.browser = webdriver.Firefox(options=options, firefox_profile=firefox_profile)
-        
-        # # log in test user
-        # headers = { 'Content-Type': 'application/json; charset=utf-8' }
-        # body = {'username': self['testUser']['username'], self['testUser']['password']: password}        
-        
-        # response = requests.post('http://test-brew.herokuapp.com/api/token/', headers=headers, data=json.dumps(body))
-        
-        # self.token = response.json()['access']
-        
+
         self.addCleanup(self.browser.quit)
 
     def testPageTitle(self):
-        self.browser.get(self['urls']['base'])
+        self.browser.get(self.urls['base'])
         self.assertEqual('Parallel Brewniverses', self.browser.title)
     
     def testSignup(self):
         # sign up
-        urls = self['urls']
-        user = self['newUser']
+        urls = self.urls
+        user = self.newUser
         
         self.browser.get(urls['base'] + urls['signup'])
         
         email = self.browser.find_element_by_name('email')
         email.send_keys(user['email'])
 
-        name = self.browser.find_element_by_name('name')
+        name = self.browser.find_element_by_name('name')        WebDriverWait(self.browser, 10).until(
+            EC.url_to_be(urls['base'] + urls['home'])
+        )
+        
+        # click add post link
+        self.browser.find_element_by_xpath("//a[@href='#/addpost']").click()
+
+        # fill out post form
+        title = self.browser.find_element_by_name('title')
+        title.send_keys(post['title'])
+        
+        picture = self.browser.find_element_by_name('picture')
+        picture.send_keys(post['picture'])
+
+        rating = self.browser.find_element_by_name('rating')
+        rating.send_keys(post['rating'])
+
+        content = self.browser.find_element_by_name('content')
+        content.send_keys(post['content'])
+
+        tags = self.browser.find_element_by_name('channels')
+        tags.send_keys(post['tags'])
+
+        #submit post 
+        tags.submit()
+
+        WebDriverWait(self.browser, 10).until(
+            EC.url_contains('/post/')
+        )
+
+        postId = self.browser.current_url.split('/').pop()
+        access_token = self.getTokenFromCookie()
+
+        # delete post 
+        headers = { 'Authorization': 'Bearer ' + str(access_token) }
+        response = requests.delete(urls['server'] + 'posts/' + postId, headers=headers)
+
+        # verify successful delete
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         name.send_keys(user['name'])
 
         password = self.browser.find_element_by_name('pass')
@@ -86,59 +119,74 @@ class ClientTest(APITestCase):
         confPass.send_keys(user['password'])
         
         confPass.submit()
+    
+        # user redirected to home after successful signup 
+        home = WebDriverWait(self.browser, 10).until(
+            EC.url_to_be(urls['base'] + urls['home'])
+        )
+
+        # get authorization token and user_id from cookies 
+        access_token = self.getTokenFromCookie()
+        user_id = self.browser.get_cookie('user_id')['value']
+
+        # delete user
+        headers = { 'Authorization': 'Bearer ' + str(access_token) }
+        response = requests.delete(urls['server'] + 'users/' + user_id, headers=headers)
         
-        try:
-            # user redirected to home after successful signup 
-            home = WebDriverWait(self.browser, 10).until(
-                EC.url_to_be(urls['base'] + urls['home'])
-            )
+        # verify successful delete
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
-            # get authorization token and user_id from cookies 
-            access_token = self.browser.get_cookie('access_token')['value']
-            user_id = self.browser.get_cookie('user_id')['value']
+    def testPost(self):
+        urls = self.urls
+        post = self.post
+        user = self.testUser
 
-            # delete user
-            headers = { 'Authorization': 'Bearer ' + str(access_token) }
-            response = requests.delete('https://test-brew.herokuapp.com/users/' + user_id, headers=headers)
-            
-            # verify successful delete
-            self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-
-        finally:
-            self.browser.quit()
-
-    def testPost():
-        urls = self['urls']
-        post = self['post']
-        user = self['testUser']
-
+        # log in
         self.browser.get(urls['base'] + urls['login'])
+        
+        inputs = self.browser.find_elements_by_tag_name('input')
+        
+        inputs[0].send_keys(user['username'])
+        inputs[1].send_keys(user['password'])
 
+        inputs[1].submit()
         # wait for page load
-        try: 
-            newPost = WebDriverWait(self.browser, 10).until(
-                EC.url_to_be(urls['base'] + urls['home'])
-            )
-            
-            self.browser.find_element_by_xpath("//a[@href='#/addpost']").click()
+        WebDriverWait(self.browser, 10).until(
+            EC.url_to_be(urls['base'] + urls['home'])
+        )
+        
+        # click add post link
+        self.browser.find_element_by_xpath("//a[@href='#/addpost']").click()
 
-            # fill out post form
-            title = self.browser.find_element_by_name('title')
-            title.send_keys(post['title'])
-            
-            picture = self.browser.find_element_by_name('picture')
-            picture.send_keys(post['picture'])
+        # fill out post form
+        title = self.browser.find_element_by_name('title')
+        title.send_keys(post['title'])
+        
+        picture = self.browser.find_element_by_name('picture')
+        picture.send_keys(post['picture'])
 
-            rating = self.browser.find_element_by_name('rating')
-            rating.send_keys(post['rating'])
+        rating = self.browser.find_element_by_name('rating')
+        rating.send_keys(post['rating'])
 
-            content = self.browser.find_element_by_name('content')
-            content.send_keys(post['content'])
+        content = self.browser.find_element_by_name('content')
+        content.send_keys(post['content'])
 
-            tags = self.browser.find_element_by_name('channels')
-            tags.send_keys(post['tags'])
+        tags = self.browser.find_element_by_name('channels')
+        tags.send_keys(post['tags'])
 
-            #submit post 
-            tags.submit()
-        finally: 
-            self.browser.quit()
+        #submit post 
+        tags.submit()
+
+        WebDriverWait(self.browser, 10).until(
+            EC.url_contains('/post/')
+        )
+
+        postId = self.browser.current_url.split('/').pop()
+        access_token = self.getTokenFromCookie()
+
+        # delete post 
+        headers = { 'Authorization': 'Bearer ' + str(access_token) }
+        response = requests.delete(urls['server'] + 'posts/' + postId, headers=headers)
+
+        # verify successful delete
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
