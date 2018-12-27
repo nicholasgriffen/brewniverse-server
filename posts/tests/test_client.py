@@ -13,7 +13,6 @@ from posts.models import Brewser
 
 @tag('e2e', 'slow')
 class ClientTest(APITestCase):
-
     urls = {
         'base': 'http://parallel-brewniverses.surge.sh/#/',
         'signup': 'signup',
@@ -43,13 +42,12 @@ class ClientTest(APITestCase):
         return self.browser.get_cookie('access_token')['value']
 
     def setUp(self):
-
         # disable image loading
         firefox_profile = webdriver.FirefoxProfile()
         firefox_profile.set_preference('permissions.default.image', 2)
         firefox_profile.set_preference('dom.ipc.plugins.enabled.libflashplayer.so', 'false')
     
-        # comment out to run visible browser
+        # comment line below to run visible browser
         options = webdriver.firefox.options.Options()
         options.set_headless()
         
@@ -62,7 +60,6 @@ class ClientTest(APITestCase):
         self.assertEqual('Parallel Brewniverses', self.browser.title)
     
     def testSignup(self):
-        # sign up
         urls = self.urls
         user = self.newUser
         
@@ -71,45 +68,7 @@ class ClientTest(APITestCase):
         email = self.browser.find_element_by_name('email')
         email.send_keys(user['email'])
 
-        name = self.browser.find_element_by_name('name')        WebDriverWait(self.browser, 10).until(
-            EC.url_to_be(urls['base'] + urls['home'])
-        )
-        
-        # click add post link
-        self.browser.find_element_by_xpath("//a[@href='#/addpost']").click()
-
-        # fill out post form
-        title = self.browser.find_element_by_name('title')
-        title.send_keys(post['title'])
-        
-        picture = self.browser.find_element_by_name('picture')
-        picture.send_keys(post['picture'])
-
-        rating = self.browser.find_element_by_name('rating')
-        rating.send_keys(post['rating'])
-
-        content = self.browser.find_element_by_name('content')
-        content.send_keys(post['content'])
-
-        tags = self.browser.find_element_by_name('channels')
-        tags.send_keys(post['tags'])
-
-        #submit post 
-        tags.submit()
-
-        WebDriverWait(self.browser, 10).until(
-            EC.url_contains('/post/')
-        )
-
-        postId = self.browser.current_url.split('/').pop()
-        access_token = self.getTokenFromCookie()
-
-        # delete post 
-        headers = { 'Authorization': 'Bearer ' + str(access_token) }
-        response = requests.delete(urls['server'] + 'posts/' + postId, headers=headers)
-
-        # verify successful delete
-        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        name = self.browser.find_element_by_name('name')        
         name.send_keys(user['name'])
 
         password = self.browser.find_element_by_name('pass')
@@ -124,16 +83,14 @@ class ClientTest(APITestCase):
         home = WebDriverWait(self.browser, 10).until(
             EC.url_to_be(urls['base'] + urls['home'])
         )
-
-        # get authorization token and user_id from cookies 
+        
+        # delete user
         access_token = self.getTokenFromCookie()
         user_id = self.browser.get_cookie('user_id')['value']
 
-        # delete user
         headers = { 'Authorization': 'Bearer ' + str(access_token) }
         response = requests.delete(urls['server'] + 'users/' + user_id, headers=headers)
         
-        # verify successful delete
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
     def testPost(self):
@@ -150,15 +107,14 @@ class ClientTest(APITestCase):
         inputs[1].send_keys(user['password'])
 
         inputs[1].submit()
-        # wait for page load
+
         WebDriverWait(self.browser, 10).until(
             EC.url_to_be(urls['base'] + urls['home'])
         )
         
-        # click add post link
         self.browser.find_element_by_xpath("//a[@href='#/addpost']").click()
 
-        # fill out post form
+        #submit post 
         title = self.browser.find_element_by_name('title')
         title.send_keys(post['title'])
         
@@ -174,19 +130,17 @@ class ClientTest(APITestCase):
         tags = self.browser.find_element_by_name('channels')
         tags.send_keys(post['tags'])
 
-        #submit post 
         tags.submit()
 
         WebDriverWait(self.browser, 10).until(
             EC.url_contains('/post/')
         )
 
+        # delete post 
         postId = self.browser.current_url.split('/').pop()
         access_token = self.getTokenFromCookie()
 
-        # delete post 
         headers = { 'Authorization': 'Bearer ' + str(access_token) }
         response = requests.delete(urls['server'] + 'posts/' + postId, headers=headers)
 
-        # verify successful delete
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
