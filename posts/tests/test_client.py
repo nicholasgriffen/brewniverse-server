@@ -65,6 +65,7 @@ class ClientTest(APITestCase):
         
         self.browser.get(urls['base'] + urls['signup'])
         
+        #create user
         email = self.browser.find_element_by_name('email')
         email.send_keys(user['email'])
 
@@ -79,8 +80,7 @@ class ClientTest(APITestCase):
         
         confPass.submit()
     
-        # user redirected to home after successful signup 
-        home = WebDriverWait(self.browser, 10).until(
+        WebDriverWait(self.browser, 10).until(
             EC.url_to_be(urls['base'] + urls['home'])
         )
         
