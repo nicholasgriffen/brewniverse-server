@@ -14,7 +14,7 @@
 ## Run the Tests [(what's manage.py?)](https://docs.djangoproject.com/en/2.1/ref/django-admin/)
 End-to-end test require the following environment variables:   
 `TEST_USER_NAME`  
-`TEST_USER_PASS'`  
+`TEST_USER_PASS`  
 All tests: `python manage.py test posts/`  
 Exclude end-to-end tests: `python manage.py test --exclude-tag=e2e posts/`   
 ## Run the Server
