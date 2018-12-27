@@ -47,8 +47,8 @@ class ClientTest(APITestCase):
         firefox_profile.set_preference('permissions.default.image', 2)
         firefox_profile.set_preference('dom.ipc.plugins.enabled.libflashplayer.so', 'false')
     
-        # comment line below to run visible browser
         options = webdriver.firefox.options.Options()
+        # comment line below to run visible browser
         options.set_headless()
         
         self.browser = webdriver.Firefox(options=options, firefox_profile=firefox_profile)
