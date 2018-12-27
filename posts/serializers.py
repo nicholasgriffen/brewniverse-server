@@ -51,7 +51,7 @@ class PostSerializer(serializers.ModelSerializer):
                 # associate post with tag
                 modelTags = modelTags + [found]
                 found.posts.add(instance)
-            # call .set since instance is already saved
+   
         instance.tags.set(modelTags)
         
         instance.save()
